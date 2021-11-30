@@ -5,6 +5,9 @@ import MiniCardComponent from 'components/cards/MiniCardComponent';
 import TodayTrendsComponent from './TodayTrendsComponent';
 import UnresolvedTicketsComponent from './UnresolvedTicketsComponent';
 import TasksComponent from './TasksComponent';
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import interactionPlugin from '@fullcalendar/interaction'
 
 const useStyles = createUseStyles((theme) => ({
     cardsContainer: {
@@ -86,6 +89,9 @@ const useStyles = createUseStyles((theme) => ({
             width: '140vw'
         },
     },
+    calendar: {
+        marginTop: '20px',
+    }
 }));
 
 
@@ -147,9 +153,17 @@ function DashboardComponent() {
                     </Row>
                 </Row>
             </Row>
-            {/* <div className={classes.todayTrends}>
-                <TodayTrendsComponent />
-            </div> */}
+            
+            <div className={classes.calendar}>
+                <FullCalendar 
+                        defaultView="dayGridMonth" 
+                        plugins={[dayGridPlugin, interactionPlugin]}
+                        editable={true}
+                        // eventDrop={this.handleEventDrop}
+                        // eventClick={this.handleEventClick}
+                        // events={this.formatEvents()}
+                    />            
+            </div>
             <Row
                 horizontal='space-between'
                 className={classes.lastRow}

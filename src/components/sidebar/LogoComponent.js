@@ -26,6 +26,7 @@ function LogoComponent() {
                 src={Logo}
                 alt='avatar'
             /> */}
+            <img src="/simplify-logo.png" alt="logo" />
             <span className={classes.title}>Simplify</span>
         </Row>
     );
