@@ -27,7 +27,7 @@ const useStyles = createUseStyles({
         fontSize: 16,
         lineHeight: '20px',
         letterSpacing: '0.2px',
-        color: ({ theme, isActive }) => (isActive ? theme.color.paleBlue : theme.color.grayishBlue),
+        color: 'white',
         marginLeft: 24
     }
 });
@@ -43,7 +43,7 @@ function MenuItemComponent({ children, icon: Icon, id, items = [], level = 1, on
     const classes = useStyles({ theme, level, isActive });
     const classNameColumn = isActive ? classes.leftBar : '';
     const classNameContainer = [classes.container, isActive && classes.activeContainer].join(' ');
-    const iconColor = isActive ? theme.color.paleBlue : theme.color.grayishBlue2;
+    const iconColor = 'white';
 
     function onItemClicked(e) {
         if (onClick) {
@@ -55,7 +55,7 @@ function MenuItemComponent({ children, icon: Icon, id, items = [], level = 1, on
     return (
         <Column key={id} className={classNameColumn}>
             <Row vertical='center' onClick={onItemClicked} className={classNameContainer}>
-                <Icon fill={iconColor} opacity={!isActive && '0.4'} />
+                <Icon fill={iconColor} />
                 <span className={classes.title}>{title}</span>
             </Row>
             {isCollapsible && (

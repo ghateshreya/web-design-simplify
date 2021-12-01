@@ -30,7 +30,7 @@ const getMenuStyles = ({ theme }) => ({
         zIndex: 30
     },
     bmMenu: {
-        background: theme.color.veryDarkGrayishBlue
+        background: '#6C63FF',
     },
     bmItem: {
         outline: 'none',
