@@ -47,7 +47,7 @@ const useStyles = createUseStyles((theme) => ({
 const TAGS = {
     PERSONAL: { text: 'PERSONAL', backgroundColor: '#FEC400', color: '#FFFFFF' },
     GROUP: { text: 'GROUP', backgroundColor: '#29CC97', color: '#FFFFFF' }
-};
+};4
 
 function AddExpenseComponent({ className = '', title, value }) {
     const theme = useTheme();
