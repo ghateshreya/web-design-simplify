@@ -6,7 +6,8 @@ import Theme from 'resources/theme';
 import Routes from 'routes';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+   
 ReactDOM.render(
     <ThemeProvider theme={Theme}>
         <Router>

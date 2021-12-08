@@ -14,7 +14,8 @@ function Routes() {
     }, [pathname]);
 
     const isUserLoggedIn = true;
-    return isUserLoggedIn ? <PrivateSection /> : <PublicRoutes />;
+    // return isUserLoggedIn ? <PrivateSection /> : <PublicRoutes />;
+    return <PublicRoutes />;
 }
 
 export default Routes;
