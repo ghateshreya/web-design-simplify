@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Column } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
 import { Grid, Modal, Typography } from '@material-ui/core';
+import { FaMoneyCheckAlt } from 'react-icons/fa';
+import { Button } from 'react-bootstrap';
 
 const useStyles = createUseStyles((theme) => ({
     addButton: {
@@ -11,7 +13,8 @@ const useStyles = createUseStyles((theme) => ({
         padding: '7px !important'
     },
     container: {
-        backgroundColor: 'red',
+        backgroundColor: 'rgb(108, 99, 255)',
+        color: "#FFFFFF",
         border: `1px solid ${theme.color.lightGrayishBlue2}`,
         borderRadius: 4,
         cursor: 'pointer',
@@ -52,11 +55,13 @@ function AddExpenseComponent(props) {
     const theme = useTheme();
     const classes = useStyles({ theme });
     const composedClassName = [classes.container, props.className].join(' ');
+    const [modal, setModal] = useState(false);
 
     function onAddButtonClick() {
         props.setItems((prev) => {
             const newItems = [...prev];
             newItems.push({
+                icon: <FaMoneyCheckAlt />,
                 title: `New Task`,
                 tag: TAGS.PERSONAL,
                 date: 'Dec 12, 2021',
@@ -66,19 +71,41 @@ function AddExpenseComponent(props) {
         });
     }
 
+    function onClick() {
+        if (!modal) {
+            setModal(true);
+        }
+        else {
+            setModal(false)
+        }
+    }
+    function onClose() {
+        setModal(false);
+    }
+
+
+
+    const ModalComponent = () => {
+        return (
+            <div>Modal</div>
+        )
+    };
+
     return (
-        <Column flexGrow={1} className={composedClassName} horizontal='center' vertical='center' onClick={onAddButtonClick}>
+        <Column flexGrow={1} className={composedClassName} horizontal='center' vertical='center' onClick={onClick}>
             <Grid item xs container direction="column" className={classes.user}>
                 <Grid item className={classes.user} >
-                <Typography variant="h6" style={{fontSize: '30px'}}>
-                       +
+                    <Typography variant="h6" style={{ fontSize: '30px' }}>
+                        +
                     </Typography>
                     <Typography variant="body2">Add New Expense</Typography>
+                    {modal ? <ModalComponent /> : null}
                     
+
                 </Grid>
-            </Grid> 
+            </Grid>
         </Column>
-        
+
     );
 }
 
