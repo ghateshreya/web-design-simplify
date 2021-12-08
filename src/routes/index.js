@@ -13,9 +13,9 @@ function Routes() {
         window.scrollTo(0, 0);
     }, [pathname]);
 
-    // const isUserLoggedIn = true;
+    const isUserLoggedIn = true;
+    // return isUserLoggedIn ? <PrivateSection /> : <PublicRoutes />;
     return <PrivateSection />;
-    // return <PublicRoutes />;
 }
 
 export default Routes;

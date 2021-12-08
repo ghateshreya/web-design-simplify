@@ -5,7 +5,7 @@ import TotalCardComponent from './TotalExpense';
 import ExpennseListComponent from './ExpenseListComponent';
 import ExpenseChart from './ExpenseChart';
 import AddExpenseComponent from './AddExpenseComponent';
-import AddExpenseForm from './AddExpenseForm';
+import { FaHamburger, FaGasPump, FaShoppingBag } from "react-icons/fa";
 
 const useStyles = createUseStyles((theme) => ({
     cardsContainer: {
@@ -118,14 +118,15 @@ function ExpenseComponent(props) {
 
     // State for defining data
     const [items, setItems] = useState([
-        { title: 'Grocery', tag: TAGS.PERSONAL, date:'Dec 11, 2021', price: "5.99" },
+        { icon: <FaShoppingBag/> ,title: 'Grocery', tag: TAGS.PERSONAL, date:'Dec 11, 2021', price: "5.99" },
         {
+            icon: <FaGasPump />,
             title: 'Transport',
             tag: TAGS.GROUP,
             date:'Dec 10, 2021',
             price: "8.99"
         },
-        { title: 'Food', checked: true, tag: TAGS.PERSONAL, date:'Dec 07, 2021', price: "10.99" }
+        { icon: <FaHamburger/>, title: 'Food', checked: true, tag: TAGS.PERSONAL, date:'Dec 07, 2021', price: "10.99" }
     ]);
 
     return (

@@ -6,6 +6,7 @@ import DateComponent from './DateComponent';
 import PriceComponent from './PriceComponent';
 import {AiFillDelete} from 'react-icons/ai';
 
+
 const useStyles = createUseStyles((theme) => ({
     addButton: {
         backgroundColor: theme.color.lightGrayishBlue,
@@ -13,9 +14,14 @@ const useStyles = createUseStyles((theme) => ({
         fontSize: '20px !important',
         padding: '7px !important'
     },
+    icon:{
+        color:'rgb(108, 99, 255)'
+    },
     itemTitle: {
         ...theme.typography.itemTitle,
-        color: theme.color.veryDarkGrayishBlue
+        color: theme.color.veryDarkGrayishBlue,
+        margin: '0px 0px 0px 10px'
+        
     },
     itemValue: {
         color: theme.color.grayishBlue2
@@ -118,7 +124,7 @@ function TaskComponent({ classes, index, item = {}, onCheckboxClick, onTagClick 
     return (
         <Row horizontal='space-between' vertical='center'>
             <Row>
-                
+                <div className={classes.icon}>{item.icon}</div>
                 <span className={classes.itemTitle}>{item.title}</span>
             </Row>
             <TagComponent
@@ -132,7 +138,7 @@ function TaskComponent({ classes, index, item = {}, onCheckboxClick, onTagClick 
             <DateComponent date={item.date}></DateComponent>
             <PriceComponent classes={classes} price={item.price}></PriceComponent>
             <div className={classes.checkboxWrapper} onClick={() => onCheckboxClick(index)}>
-                    { <AiFillDelete/>}
+                    { <AiFillDelete color='red'/>}
                 </div>
             
             
