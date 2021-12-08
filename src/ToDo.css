@@ -1,0 +1,179 @@
+.NewTaskBtn{
+    background-color: #6C63FF;
+    color: white;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+.NewTaskBtn:hover{
+    color: #6C63FF;
+    background-color: white;
+    border: #6C63FF 3px solid;
+}
+.tasksContainer{
+    display: inline-block;
+    width: 80%;
+    
+}
+.taskOption{
+    width: 140px;
+    height: 45px;
+    margin: 5px;
+    border-radius: 10px;
+    border: 3px solid darkgray;
+}
+.allTasks{
+    display: inline-block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 50%;
+    /* border: 3px solid #6C63FF; */
+    /* border-radius: 10px; */
+    float: left;
+    margin-left: 260px;
+    
+}
+.taskCategories{
+    display: inline-block;
+    width: 20%;
+    /* border: 3px solid #6C63FF; */
+    /* border-radius: 10px; */
+    float: right;
+    margin: 50px;
+    
+}
+.task{
+    border: 3px solid #6C63FF;
+    width: 99%;
+    margin-top: 5px;
+    height: 40px;
+    border-radius: 10px;
+}
+.category{
+    margin-top: 5px;
+    border: 3px solid #6C63FF;
+    width: 80%;
+    height: 60px;
+    border-radius: 10px;
+    /* position: absolute;
+    right: 30px; */
+}
+.category:hover{
+    background-color: #6C63FF;
+    color: white;
+}
+
+.categoryWork{
+    margin-top: 5px;
+    border: 3px solid yellow;
+    width: 80%;
+    height: 60px;
+    border-radius: 10px;
+}
+
+.categoryPersonal{
+    margin-top: 5px;
+    border: 3px solid green;
+    width: 80%;
+    height: 60px;
+    border-radius: 10px;
+}
+.categoryFamily{
+    margin-top: 5px;
+    border: 3px solid black;
+    width: 80%;
+    height: 60px;
+    border-radius: 10px;
+}
+.categoryOther{
+    margin-top: 5px;
+    border: 3px solid blue;
+    width: 80%;
+    height: 60px;
+    border-radius: 10px;
+}
+.btn{
+    border:3px solid darkgray;
+    border-radius: 10px;
+    color: black;
+    float: right;
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.delbtn{
+    border:3px solid darkgray;
+    border-radius: 10px;
+    color: black;
+    float: right;
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.btn:hover{
+    color: white;
+    background-color: darkgray;
+
+}
+.delbtn:hover{
+    background-color: #6C63FF;
+    color: white;
+}
+.checkbox{
+    float: left;
+    margin-top: 15px;
+}
+.inputTask{
+    width: 350px;
+    height: 40px;
+    border: darkgray 3px solid;
+    border-radius: 10px;
+    margin-left: -100px;
+    
+}
+.editbtn{
+    border:3px solid #6C63FF;
+    border-radius: 10px;
+    color: black;
+    height: 30px;
+}
+.editbtn:hover{
+    color: white;
+    background-color: #6C63FF;
+}
+.modalContainer{
+    margin-left: 400px;
+    width: 35%;
+    height: 300px;
+    background-color: darkgray;
+    border: 3px solid #6C63FF;
+    position: fixed;
+    left: 0;
+    right:0; /* Full width (left and right 0) */
+    top: 0;
+    bottom: 0; /* Full height top and bottom 0 */
+    overflow: auto;
+    margin-top: 150px
+}
+.editTask{
+    border: #6C63FF 3px solid;
+    border-radius: 10px;
+    height: 40px;
+    width: 300px;
+}
+.editTaskOption{
+    width: 140px;
+    height: 45px;
+    margin: 5px;
+    border-radius: 10px;
+    border: 3px solid #6C63FF;
+}
+.catBuss{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.tN .tC{
+position: absolute;
+}
