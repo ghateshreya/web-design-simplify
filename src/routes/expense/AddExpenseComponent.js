@@ -3,7 +3,10 @@ import { Column } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
 import { Grid, Modal, Typography } from '@material-ui/core';
 import { FaMoneyCheckAlt } from 'react-icons/fa';
+import ModalCompo from './ModalCompo';
 import { Button } from 'react-bootstrap';
+import './Expense.css';
+import { render } from 'preact';
 
 const useStyles = createUseStyles((theme) => ({
     addButton: {
@@ -11,6 +14,51 @@ const useStyles = createUseStyles((theme) => ({
         color: theme.color.grayishBlue2,
         fontSize: '20px !important',
         padding: '7px !important'
+    },
+    modal: {
+        height: '50vh',
+        position: 'fixed',
+        right: 0,
+        left: 0,
+        bottom: 0,
+        top:0,
+        backgroundColor: "white",
+        border: `1px solid ${theme.color.lightGrayishBlue2}`,
+        borderRadius: 4,
+        margin: "60px 30px 30px 30px",
+    },
+    modalH2:{
+        color: '#000000',
+        fontSize: '16px',
+    },
+    category:{
+        fontSize: '16px',
+        color: '#000000',
+        fontWeight: 'bold'
+    },
+
+    title:{
+        fontSize: '16px',
+        color: '#000000',
+        fontWeight: 'bold'
+    },
+
+    tag:{
+        fontSize: '16px',
+        color: '#000000',
+        fontWeight: 'bold'
+    },
+
+    date:{
+        fontSize: '16px',
+        color: '#000000',
+        fontWeight: 'bold'
+    },
+
+    price:{
+        fontSize: '16px',
+        color: '#000000',
+        fontWeight: 'bold'
     },
     container: {
         backgroundColor: 'rgb(108, 99, 255)',
@@ -56,6 +104,7 @@ function AddExpenseComponent(props) {
     const classes = useStyles({ theme });
     const composedClassName = [classes.container, props.className].join(' ');
     const [modal, setModal] = useState(false);
+    const [modalShow, setModalShow] = React.useState(false);
 
     function onAddButtonClick() {
         props.setItems((prev) => {
@@ -74,6 +123,7 @@ function AddExpenseComponent(props) {
     function onClick() {
         if (!modal) {
             setModal(true);
+
         }
         else {
             setModal(false)
@@ -87,9 +137,19 @@ function AddExpenseComponent(props) {
 
     const ModalComponent = () => {
         return (
-            <div>Modal</div>
+            <div className={classes.modal}>
+                <div className={classes.modalH2}>Add Expense</div>
+                <div className={classes.category}>Category</div>
+                <div className={classes.title}>Title</div>
+                <div className={classes.tag}>Tag</div>
+                <div className={classes.date}>Date</div>
+                <div className={classes.price}>Price</div>
+
+            </div>
         )
     };
+
+
 
     return (
         <Column flexGrow={1} className={composedClassName} horizontal='center' vertical='center' onClick={onClick}>
@@ -99,12 +159,13 @@ function AddExpenseComponent(props) {
                         +
                     </Typography>
                     <Typography variant="body2">Add New Expense</Typography>
-                    {modal ? <ModalComponent /> : null}
-                    
+                    { modal ? <ModalComponent/> : null }
+
 
                 </Grid>
             </Grid>
         </Column>
+        
 
     );
 }

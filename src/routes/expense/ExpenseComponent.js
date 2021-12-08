@@ -6,7 +6,6 @@ import ExpennseListComponent from './ExpenseListComponent';
 import ExpenseChart from './ExpenseChart';
 import AddExpenseComponent from './AddExpenseComponent';
 import { FaHamburger, FaGasPump, FaShoppingBag } from "react-icons/fa";
-import AddExpenseForm from './AddExpenseForm';
 
 const useStyles = createUseStyles((theme) => ({
     cardsContainer: {
