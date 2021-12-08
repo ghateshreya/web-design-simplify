@@ -3,7 +3,7 @@ import { createUseStyles, useTheme } from 'react-jss';
 import { Column, Row } from 'simple-flexbox';
 import { SidebarComponent, SidebarContext } from 'components/sidebar';
 import HeaderComponent from 'components/header/HeaderComponent';
-import PrivateRoutes from './PrivateRoutes';
+import AppRoutes from './AppRoutes';
 
 const useStyles = createUseStyles({
     container: {
@@ -33,7 +33,7 @@ function PrivateSection() {
                 <Column flexGrow={1} className={classes.mainBlock}>
                     <HeaderComponent />
                     <div className={classes.contentBlock}>
-                        <PrivateRoutes />
+                        <AppRoutes />
                     </div>
                 </Column>
             </Row>
