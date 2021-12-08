@@ -1,0 +1,159 @@
+.expense{
+    margin: auto;
+    width: 80%;
+    display: flex;
+}
+
+
+.expense-main{
+    width: 70%;
+    padding: 10px;
+    display: block;
+}
+.expense-main h1{
+    margin: 15px 0px;
+    text-align: left;
+}
+
+.expense-sidebar{
+    width: 30%;
+    padding: 10px;
+    display: block;
+}
+.expense-dashboard{
+    /* display: flex;
+    flex-wrap: wrap; */
+    width: 80%;
+    text-align: center;
+    height: 30vh;
+    margin-bottom: 5%;
+    padding: 5px;
+    background-color: white;
+    box-shadow: 1px 1px 5px rgb(190, 190, 190);
+    border-radius: 15px;
+}
+.chartContainer{
+    margin-left: 30px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid #DFE0EB;
+    padding: 30px 0px;
+}
+
+@media (min-width: 324px) and (max-width: 768px) {
+    .chartContainer{
+        margin: 30px 0px;
+    }
+    /* .chart{
+        height: 200px;
+    } */
+}
+
+.expense-list{
+    height: 40vh;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 1px 1px 5px rgb(190, 190, 190);
+    border-radius: 15px;
+    text-align: left;
+    overflow-y: auto;
+    
+}
+.expense-list h3{
+    color: rgb(110, 110, 110);
+    margin: 0px;
+    margin-bottom: 10px;
+}
+.expense-items{
+    display:block;
+    
+}
+.expense-item{
+    display: flex;
+    padding: 10px;
+    margin: 5px 0px;
+}
+.expense-item .icon{
+    width: 10%;
+    margin: auto;
+    text-align: left;
+    font-size: 25px;
+}
+.expense-item .name{
+    width: 30%;
+    color: grey;
+    font-size: large;
+}
+.expense-item .date{
+    width: 40%;
+    color: rgb(165, 165, 165);
+}
+.expense-item .price{
+    width: 20%;
+    color: rgb(165, 165, 165);
+    float: right;
+}
+
+.new-expense{
+    text-align: center;
+    padding: 15px;
+    width: 60%;
+    margin: 5px auto;
+    background-color: rgb(0, 0, 0);
+    border-radius: 20px;
+    color: white;
+}
+
+.total-expense{
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    box-shadow: 1px 1px 5px rgb(224, 224, 224);
+    border-radius: 20px;
+
+}
+.total-expense .photo{
+    width: 20%;
+    margin: auto;
+    border-radius: 50%;
+    background-color: grey;
+    padding: 20%;
+}
+.total-expense .username{
+    font-size: larger;
+    font-weight: bolder;
+    margin: auto;
+}
+.total-expense .user-expense{
+    font-size:xx-large;
+    font-weight:bolder;
+    margin: auto;
+    color: black;
+    padding: 10px 0px;
+}
+.chart{
+    display: block;;
+}
+
+.dateComponent{
+    font-size: 14px;
+    color: rgb(83, 83, 83);
+    text-align: center;
+}
+
+.priceComponent{
+    font-size: 16px;
+    font-weight:900;
+    text-align: center;
+}
+
+
+
+/* Add Expense Form  */
+.addExpenseForm{
+    margin: 30px;
+    padding: 40px;
+    border-radius: 4px;
+    background-color: white;
+    border: 1px solid #F7F8FC;
+}
