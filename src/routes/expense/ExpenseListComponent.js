@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Row } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
-import { IconCheckboxOn, IconCheckboxOff } from 'assets/icons';
 import CardComponent from 'components/cards/CardComponent';
+import DateComponent from './DateComponent';
+import PriceComponent from './PriceComponent';
+import {AiFillDelete} from 'react-icons/ai';
 
 const useStyles = createUseStyles((theme) => ({
     addButton: {
@@ -30,9 +32,6 @@ const useStyles = createUseStyles((theme) => ({
         lineHeight: '14px',
         padding: '5px 12px 5px 12px'
     },
-    priceStyles: {
-        fontSize: 12,
-    },
     checkboxWrapper: {
         cursor: 'pointer',
         marginRight: 16
@@ -44,26 +43,19 @@ const TAGS = {
     GROUP: { text: 'GROUP', backgroundColor: '#29CC97', color: '#FFFFFF' }
 };
 
-function TasksComponent(props) {
+function ExpenseListComponent(props) {
     const theme = useTheme();
     const classes = useStyles({ theme });
-    const [items, setItems] = useState([
-        { title: 'Grocery', checked: false, tag: TAGS.PERSONAL, price: "5.99" },
-        {
-            title: 'Transport',
-            checked: false,
-            tag: TAGS.GROUP,
-            price: "8.99"
-        },
-        { title: 'Food', checked: true, tag: TAGS.PERSONAL, price: "10.99" }
-    ]);
 
     function onCheckboxClick(index) {
-        setItems((prev) => {
+        props.setItems((prev) =>{
             const newItems = [...prev];
-            newItems[index].checked = newItems[index].checked ? false : true;
-            return newItems;
-        });
+            newItems.pop({
+                title: index.title,
+                tag: index.tag,
+
+            })
+        })
     }
     function getNextTag(current = 'GROUP') {
         const tagLabels = ['PERSONAL', 'GROUP' ];
@@ -72,7 +64,7 @@ function TasksComponent(props) {
     }
 
     function onAddButtonClick() {
-        setItems((prev) => {
+        props.setItems((prev) => {
             const newItems = [...prev];
             newItems.push({
                 title: `Task ${newItems.length + 1}`,
@@ -83,33 +75,32 @@ function TasksComponent(props) {
         });
     }
 
-    function renderAddButton() {
-        return (
-            <Row
-                horizontal='center'
-                vertical='center'
-                className={[classes.tagStyles, classes.addButton].join(' ')}
-                onClick={onAddButtonClick}
-            >
-                +
-            </Row>
-        );
-    }
+    // function renderAddButton() {
+    //     return (
+    //         <Row
+    //             horizontal='center'
+    //             vertical='center'
+    //             className={[classes.tagStyles, classes.addButton].join(' ')}
+    //             onClick={onAddButtonClick}
+    //         >
+    //             +
+    //         </Row>
+    //     );
+    // }
 
     return (
         <CardComponent
             containerStyles={props.containerStyles}
             title='Expense List'
-            link='View all'
-            subtitle='List of all your expenses till date'
+            subtitle='List of all your expenses'
             items={[
                 <Row horizontal='space-between' vertical='center'>
-                    <span className={[classes.itemTitle, classes.greyTitle].join(' ')}>
+                    {/* <span className={[classes.itemTitle, classes.greyTitle].join(' ')}>
                         Add New Expense
                     </span>
-                    {renderAddButton()}
+                    {renderAddButton()} */}
                 </Row>,
-                ...items.map((item, index) => (
+                ...props.items.map((item, index) => (
                     <TaskComponent
                         classes={classes}
                         index={index}
@@ -127,12 +118,9 @@ function TaskComponent({ classes, index, item = {}, onCheckboxClick, onTagClick 
     return (
         <Row horizontal='space-between' vertical='center'>
             <Row>
-                <div className={classes.checkboxWrapper} onClick={() => onCheckboxClick(index)}>
-                    {item.checked ? <IconCheckboxOn /> : <IconCheckboxOff />}
-                </div>
+                
                 <span className={classes.itemTitle}>{item.title}</span>
             </Row>
-            <PriceComponent classes={classes} price={item.price}></PriceComponent>
             <TagComponent
                 backgroundColor={tag.backgroundColor}
                 classes={classes}
@@ -141,17 +129,15 @@ function TaskComponent({ classes, index, item = {}, onCheckboxClick, onTagClick 
                 onClick={onTagClick}
                 text={tag.text}
             />
+            <DateComponent date={item.date}></DateComponent>
+            <PriceComponent classes={classes} price={item.price}></PriceComponent>
+            <div className={classes.checkboxWrapper} onClick={() => onCheckboxClick(index)}>
+                    { <AiFillDelete/>}
+                </div>
+            
             
         </Row>
     );
-}
-
-function PriceComponent({classes, price}){
-    return (
-        <Row className={classes.priceStyles}>
-            {price}
-        </Row>
-    )
 }
 
 function TagComponent({ backgroundColor, classes, color, index, onClick, text }) {
@@ -167,4 +153,4 @@ function TagComponent({ backgroundColor, classes, color, index, onClick, text })
     );
 }
 
-export default TasksComponent;
+export default ExpenseListComponent;

@@ -11,9 +11,10 @@ const useStyles = createUseStyles((theme) => ({
         padding: '7px !important'
     },
     container: {
-        backgroundColor: 'red',
+        backgroundColor: '#FFFFFF',
         border: `1px solid ${theme.color.lightGrayishBlue2}`,
         borderRadius: 4,
+        margin: '60px 30px 0px 0px',
         cursor: 'pointer',
         width: '250',
         // display: 'flex',
@@ -70,10 +71,7 @@ function AddExpenseComponent(props) {
         <Column flexGrow={1} className={composedClassName} horizontal='center' vertical='center' onClick={onAddButtonClick}>
             <Grid item xs container direction="column" className={classes.user}>
                 <Grid item className={classes.user} >
-                <Typography variant="h6" style={{fontSize: '30px'}}>
-                       +
-                    </Typography>
-                    <Typography variant="body2">Add New Expense</Typography>
+                    Form
                     
                 </Grid>
             </Grid> 
