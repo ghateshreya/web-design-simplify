@@ -322,6 +322,14 @@ app.get("/todo/getAll", bodyParser.json(), (req, res) => {
     else res.send(ToDos);
   });
 });
+app.get("/expense/getAll", bodyParser.json(), (req, res) => {
+  //console.log("Get called");
+
+  expenseCollection.find({}, (err, ToDos) => {
+    if (err) res.send(err);
+    else res.send(ToDos);
+  });
+});
 
 app.get("/todo/getToDoByEmail/:email", bodyParser.json(), (req, res) => {
   console.log(req.params);
@@ -341,7 +349,7 @@ app.get("/expense/getAll", bodyParser.json(), (req, res) => {
   });
 });
 
-app.get("/expense/getToDoByEmail/:email", bodyParser.json(), (req, res) => {
+app.get("/expense/getExpenseByEmail/:email", bodyParser.json(), (req, res) => {
   console.log(req.params);
 
   expenseCollection.find({ "userId.email": req.params.email }, (err, ToDos) => {
@@ -350,17 +358,18 @@ app.get("/expense/getToDoByEmail/:email", bodyParser.json(), (req, res) => {
   });
 });
 
-app.patch("/user/edit/:emailTo", bodyParser.json(), (req, res) => {
-  console.log("mm", req.body);
-  console.log("req.params.email", req.params.email);
-  const id = req.body.id;
+app.patch("/user/edit/:email", bodyParser.json(), (req, res) => {
+  //console.log("mm", req.body);
+  //console.log("req.params.email", req.params.email);
+  //const id = req.body.id;
 
-  console.log(id);
+  //console.log(id);
 
   userCollection.findOneAndUpdate(
-    { emailTo: req.params.email },
-    req.body,
-    //{ new: true },
+    { email: req.params.email },
+    { $set: { lastName: req.body.lastName, password: req.body.password } },
+    //req.body,
+    { new: true },
     function (error, success) {
       if (error) {
         res.send({ message: "Error", error });
@@ -372,13 +381,19 @@ app.patch("/user/edit/:emailTo", bodyParser.json(), (req, res) => {
   );
 });
 
-app.patch("/todo/edit/:emailTo", bodyParser.json(), (req, res) => {
-  console.log("mm", req.body.id);
-  console.log(req.params.id);
+app.patch("/todo/edit/:email", bodyParser.json(), (req, res) => {
+  //console.log("mm", req.body.id);
+  //console.log(req.params.id);
 
   toDoCollection.findOneAndUpdate(
-    { emailTo: req.params.email },
-    req.body,
+    { "userId.email": req.params.email },
+    //req.body,
+    {
+      $set: {
+        toDoDescription: req.body.toDoDescription,
+        toDoStatus: req.body.toDoStatus,
+      },
+    },
     { new: true },
     function (error, success) {
       if (error) {
@@ -391,10 +406,38 @@ app.patch("/todo/edit/:emailTo", bodyParser.json(), (req, res) => {
   );
 });
 
-app.delete("/user/delete", bodyParser.json(), (req, res) => {
+app.patch("/expense/edit/:email", bodyParser.json(), (req, res) => {
+  //console.log("mm", req.body);
+  //console.log("req.params.email", req.params.email);
+  //const id = req.body.id;
+
+  //console.log(id);
+
+  expenseCollection.findOneAndUpdate(
+    { "userId.email": req.params.email },
+    {
+      $set: {
+        expenseDescription: req.body.expenseDescription,
+        expenseCostInDollars: req.body.expenseCostInDollars,
+      },
+    },
+    //req.body,
+    { new: true },
+    function (error, success) {
+      if (error) {
+        res.send({ message: "Error", error });
+      } else {
+        console.log("Update User ", success);
+        res.send({ message: "User updated successfully", success });
+      }
+    }
+  );
+});
+
+app.delete("/user/delete/:email", bodyParser.json(), (req, res) => {
   console.log("Delete called");
   userCollection.findOneAndDelete(
-    { email: req.body.email },
+    { email: req.params.email },
     function (err, Users) {
       if (err) {
         res.send(err);
@@ -408,10 +451,10 @@ app.delete("/user/delete", bodyParser.json(), (req, res) => {
   );
 });
 
-app.delete("/todo/delete", bodyParser.json(), (req, res) => {
+app.delete("/todo/delete/:toDoName", bodyParser.json(), (req, res) => {
   console.log("Delete called");
   toDoCollection.findOneAndDelete(
-    { toDoName: req.body.toDoName },
+    { toDoName: req.params.toDoName },
     function (err, Users) {
       if (err) {
         res.send(err);
@@ -425,10 +468,10 @@ app.delete("/todo/delete", bodyParser.json(), (req, res) => {
   );
 });
 
-app.delete("/expense/delete", bodyParser.json(), (req, res) => {
+app.delete("/expense/delete/:expenseName", bodyParser.json(), (req, res) => {
   console.log("Delete called");
   expenseCollection.findOneAndDelete(
-    { expenseName: req.body.expenseName },
+    { expenseName: req.params.expenseName },
     function (err, Users) {
       if (err) {
         res.send(err);
