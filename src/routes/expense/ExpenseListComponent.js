@@ -20,7 +20,8 @@ const useStyles = createUseStyles((theme) => ({
     itemTitle: {
         ...theme.typography.itemTitle,
         color: theme.color.veryDarkGrayishBlue,
-        margin: '0px 0px 0px 10px'
+        margin: '0px 0px 0px 10px',
+        fontSize:16,
         
     },
     itemValue: {
@@ -30,6 +31,7 @@ const useStyles = createUseStyles((theme) => ({
         color: theme.color.grayishBlue3
     },
     tagStyles: {
+        textAlign: "center",
         borderRadius: 5,
         cursor: 'pointer',
         fontWeight: 'bold',

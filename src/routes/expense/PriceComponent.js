@@ -4,7 +4,7 @@ import './Expense.css';
 function PriceComponent (props){
     return (
         <div className='priceComponent'>
-            {props.price}
+            $ {props.price}
         </div>
     )
 }
