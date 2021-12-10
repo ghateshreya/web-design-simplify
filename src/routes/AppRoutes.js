@@ -6,6 +6,7 @@ import LoadingComponent from 'components/loading';
 const DashboardComponent = lazy(() => import('./dashboard'));
 const CollaborateComponent = lazy(() => import('./collaborate'));
 const ExpenseComponent = lazy(() => import('./expense'));
+const ToDo=lazy(()=> import('./ToDo'));
 
 const SignInComponent = lazy(() => import('./signin'));
 const SignUpComponent = lazy(() => import('./signup'));
@@ -23,7 +24,7 @@ function AppRoutes() {
             </div> */}
                 {/* <Redirect to={SLUGS.login} /> */}
                 <Route exact path={SLUGS.dashboard} component={DashboardComponent} />
-                <Route exact path={SLUGS.todo} render={() => <div>To Do Component</div>} />
+                <Route exact path={SLUGS.todo} component={ToDo} />
                 <Route exact path={SLUGS.expenses} component={ExpenseComponent} />
                 <Route exact path={SLUGS.collaborate} component={CollaborateComponent} />
                 <Route exact path={SLUGS.settings} render={() => <div>Settings Component</div>} />
