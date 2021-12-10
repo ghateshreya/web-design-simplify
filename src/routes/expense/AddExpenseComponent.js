@@ -187,6 +187,7 @@ function AddExpenseComponent(props) {
     }
     const handleSave = () => {
         setOpen(false);
+        
         props.setItems((prev) => {
             const newItems = [...prev];
             newItems.push({
