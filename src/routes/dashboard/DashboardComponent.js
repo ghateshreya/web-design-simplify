@@ -154,7 +154,7 @@ function DashboardComponent() {
                 </Row>
             </Row>
             
-            <div className={classes.calendar}>
+            {/* <div className={classes.calendar}>
                 <FullCalendar 
                         defaultView="dayGridMonth" 
                         plugins={[dayGridPlugin, interactionPlugin]}
@@ -163,7 +163,7 @@ function DashboardComponent() {
                         // eventClick={this.handleEventClick}
                         // events={this.formatEvents()}
                     />            
-            </div>
+            </div> */}
             <Row
                 horizontal='space-between'
                 className={classes.lastRow}

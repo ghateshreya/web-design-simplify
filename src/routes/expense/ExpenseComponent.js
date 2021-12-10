@@ -1,16 +1,31 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { Column, Row } from 'simple-flexbox';
-import { createUseStyles } from 'react-jss';
-import MiniCardComponent from 'components/cards/MiniCardComponent';
+import { createUseStyles, useTheme } from 'react-jss';
 import TotalCardComponent from './TotalExpense';
 import ExpennseListComponent from './ExpenseListComponent';
 import ExpenseChart from './ExpenseChart';
 import AddExpenseComponent from './AddExpenseComponent';
+import { FaHamburger, FaGasPump, FaShoppingBag } from "react-icons/fa";
 
 const useStyles = createUseStyles((theme) => ({
     cardsContainer: {
         marginRight: -30,
         marginTop: -30
+    },
+    addButton: {
+        backgroundColor: theme.color.lightGrayishBlue,
+        color: theme.color.grayishBlue2,
+        fontSize: '20px !important',
+        padding: '7px !important'
+    },
+    tagStyles: {
+        borderRadius: 5,
+        cursor: 'pointer',
+        fontWeight: 'bold',
+        fontSize: 11,
+        letterSpacing: '0.5px',
+        lineHeight: '14px',
+        padding: '5px 12px 5px 12px'
     },
     cardRow: {
         marginTop: 30,
@@ -80,9 +95,12 @@ const useStyles = createUseStyles((theme) => ({
     }
 }));
 
+const TAGS = {
+    PERSONAL: { text: 'PERSONAL', backgroundColor: '#FEC400', color: '#FFFFFF' },
+    GROUP: { text: 'GROUP', backgroundColor: '#29CC97', color: '#FFFFFF' }
+};
 
-
-function ExpenseComponent() {
+function ExpenseComponent(props) {
     const classes = useStyles();
     function renderStat(title, value) {
         return (
@@ -98,6 +116,18 @@ function ExpenseComponent() {
         );
     }
 
+    // State for defining data
+    const [items, setItems] = useState([
+        { icon: <FaShoppingBag/> ,title: 'Grocery', tag: TAGS.PERSONAL, date:'Dec 11, 2021', price: "5.99" },
+        {
+            icon: <FaGasPump />,
+            title: 'Transport',
+            tag: TAGS.GROUP,
+            date:'Dec 10, 2021',
+            price: "8.99"
+        },
+        { icon: <FaHamburger/>, title: 'Food', checked: true, tag: TAGS.PERSONAL, date:'Dec 07, 2021', price: "10.99" }
+    ]);
 
     return (
         <Column>
@@ -127,27 +157,38 @@ function ExpenseComponent() {
                     horizontal='space-between'
                     breakpoints={{ 384: 'column' }}
                 >
-                    <AddExpenseComponent
-                        className={classes.miniCardContainer}
-                        // title='Unresolved'
-                        // value='60'
-                    />
+                    
                    
                     <TotalCardComponent
                         className={classes.miniCardContainer}
                         title='Overdue'
                         value='16'
                     />
+                    <AddExpenseComponent 
+                        className={classes.miniCardContainer}
+                        setItems = {setItems}
+                        // title='Unresolved'
+                        // value='60'
+                    />
                 </Row>
                 
             </Row>
+            {/* <Row className={classes.cardsContainer}
+                wrap
+                flexGrow={1}
+                horizontal='space-between'
+                breakpoints={{ 768: 'column' }}>
+                    <AddExpenseForm />
+
+
+            </Row> */}
             <Row
                 horizontal='space-between'
                 className={classes.lastRow}
                 breakpoints={{ 769: 'column' }}
             >
                 
-                <ExpennseListComponent containerStyles={classes.tasks} />
+                <ExpennseListComponent containerStyles={classes.tasks} setItems={setItems} items={items}/>
                 <ExpenseChart />
             </Row>
         </Column>
