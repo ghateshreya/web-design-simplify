@@ -29,7 +29,7 @@ function AppRoutes() {
                 <Route exact path={SLUGS.collaborate} component={CollaborateComponent} />
                 <Route exact path={SLUGS.settings} render={() => <div>Settings Component</div>} />
                 
-                {/* <Redirect to={SLUGS.dashboard} /> */}
+                <Redirect to={SLUGS.dashboard} />
             </Switch>
             
         </Suspense>
