@@ -15,36 +15,59 @@ const ToDo = () => {
     const [isEditItem,setIsEditItem]=useState(null);
     const [inputName,setInputName]=useState("");
     const [isEditName,setIsEditName]=useState(null);
-    
+    const [userId,setUserId]=useState("")
+
     const url = "http://localhost:3000/todo/getAll";
     // const url = "https://jsonplaceholder.typicode.com/posts/1";
     const [post, setPost] = React.useState(null);
 
     React.useEffect(() => {
         axios.get(url, ).then((response) => {
-        setPost(response.data);
-        console.log(response.data);
+        setTask(response.data);
+        // console.log(response.data);
         });
     }, []);
-    
+    console.log(post)
     const newTask= async (e)=>{
-        e.preventDefault();
+        // e.preventDefault();
         var name=document.getElementById("inputName").value
         var input=document.getElementById("inputTask").value
         var category=document.getElementById("taskOption").value
         
         if(input!=="" && name!=="")
         {
-            let taskObj={}
-            taskObj["toDoName"]=name
-            taskObj["toDoDescription"]=input
-            taskObj["toDoStatus"]=category
+            // let taskObj={}
+            // taskObj["toDoName"]=name
+            // taskObj["toDoDescription"]=input
+            // taskObj["toDoStatus"]=category
             
-            // const res = await axios.post("/todo/create",taskObj);
+
+            await axios.post("http://localhost:3000/todo/create", 
+                {
+    
+                    "toDoName":name,
+                    "toDoDescription":input,
+                    "toDoStatus": category,
+                    
+                    "userId":{"firstName" : "Jinal",
+                        "lastName": "Mamaniya",
+                        "email":"jinal.m@tcs.com",
+                        "password":"Password@4125",
+                        "groupName":"Web Project"
+                }   
+            }).then((response) =>{
+                let tempList=task
+             tempList.push(response.data) 
+                
+                setTask(tempList);
+                // window.location.reload();
+              });
+
+            // const res = await axios.post("http://localhost:3000/todo/create",taskObj);
             // console.log(res.data);
-            let tempList=task
-            tempList.push(taskObj) 
-            setTask(tempList)
+            // let tempList=task
+            // tempList.push(taskObj) 
+            // setTask(tempList)
         
         }
 
@@ -65,20 +88,20 @@ const ToDo = () => {
         
     }
 
-    function updated(){
+    const updated= async ()=>{
         var category=document.getElementById("taskOption").value
 
-        
-        
-            setTask(
-                task.map((elem)=>{
-                    if(elem.toDoDescription===isEditItem && elem.toDoName===isEditName)
-                    {
-                        return {...elem, toDoName:inputName, toDoDescription:inputData,toDoStatus:category}
-                    }
-                    return elem
-                })
-            )
+        let updt=task.map((elem)=>{
+            if(elem.toDoDescription===isEditItem && elem.toDoName===isEditName)
+            {
+                return {...elem, toDoName:inputName, toDoDescription:inputData,toDoStatus:category, userId:userId}
+            }
+            return elem
+        })
+        console.log(updt)
+        console.log(updt[0].userId[0].email)
+        const res=await axios.put(`http://localhost:3000/todo/edit/${updt[0].userId[0].email}`, updt)
+            setTask(res.data)
 
             if(category==="New")
             {
@@ -101,7 +124,7 @@ const ToDo = () => {
         
     }
 
-    function handleDelete(id,type)
+    const handleDelete = async (id,type)=>
     {
         var category=document.getElementById("taskOption").value
 
@@ -121,12 +144,14 @@ const ToDo = () => {
                     setInprocess(inprocess-1)
                 }
             }
-            return t["toDoName"] !== id;
+            return t["toDoName"] === id;
           });
-          setTask(removeItem);
+
+          const res= await axios.delete(`http://localhost:3000/todo/delete/${id}`,removeItem)
+          setTask(res.data);
     }
  
-    function handleModal (taskName,taskDesc,index){
+    function handleModal (taskName,taskDesc,index,userId){
         
         let editItems=task.find((elem)=>{
             return elem.toDoName===taskName
@@ -152,6 +177,7 @@ const ToDo = () => {
         setInputName(editItems.toDoName)
         setIsEditName(taskName)
         setIsEditItem(taskDesc)
+        setUserId(userId)
     }
 
 
@@ -180,7 +206,7 @@ const ToDo = () => {
             <div className="allTasks">
             
                 {task.map((t,index)=>
-                    <div className="task" key={t.toDoDescription} > <span className="tN">({t.toDoName})</span> <span className="tD"> {t.toDoDescription} </span><span className="tC"> [{t.toDoStatus}]</span> <input type="button" className="btn" onClick={()=>handleModal(t.toDoName,t.toDoDescription,index)} value="Edit"/><input type="button" className="btn" value="Delete" onClick={()=>handleDelete(t.toDoName,t.toDoStatus)}/> </div>
+                    <div className="task" key="{t.toDoName}" > <span className="tN">({t.toDoName})</span> <span className="tD"> {t.toDoDescription} </span><span className="tC"> [{t.toDoStatus}]</span> <input type="button" className="btn" onClick={()=>handleModal(t.toDoName,t.toDoDescription,index,t.userId)} value="Edit"/><input type="button" className="btn" value="Delete" onClick={()=>handleDelete(t.toDoName,t.toDoStatus)}/> </div>
             
                 )}
             
