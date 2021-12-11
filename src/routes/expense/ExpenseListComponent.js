@@ -2,9 +2,10 @@ import React from 'react';
 import { Row } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
 import CardComponent from 'components/cards/CardComponent';
-import DateComponent from './DateComponent';
+// import DateComponent from './DateComponent';
 import PriceComponent from './PriceComponent';
 import {AiFillDelete} from 'react-icons/ai';
+// import axios from 'axios';
 
 
 const useStyles = createUseStyles((theme) => ({
@@ -53,14 +54,14 @@ const useStyles = createUseStyles((theme) => ({
     }
 }));
 
-const TAGS = {
-    UTILITIES: { text: 'UTILITIES', backgroundColor: '#FEC400', color: '#FFFFFF' },
-    ENTERTAINMENT: { text: 'ENTERTAINMENT', backgroundColor: '#9966FF', color: '#FFFFFF' },
-    TRAVEL: { text: 'TRAVEL', backgroundColor: '#FF6484', color: '#FFFFFF' },
-    MISC: { text: 'MISC', backgroundColor: '#FF9F3F', color: '#FFFFFF' },
-    FOOD: { text: 'FOOD', backgroundColor: '#4BC0C0', color: '#FFFFFF' },
+// const TAGS = {
+//     UTILITIES: { text: 'UTILITIES', backgroundColor: '#FEC400', color: '#FFFFFF' },
+//     ENTERTAINMENT: { text: 'ENTERTAINMENT', backgroundColor: '#9966FF', color: '#FFFFFF' },
+//     TRAVEL: { text: 'TRAVEL', backgroundColor: '#FF6484', color: '#FFFFFF' },
+//     MISC: { text: 'MISC', backgroundColor: '#FF9F3F', color: '#FFFFFF' },
+//     FOOD: { text: 'FOOD', backgroundColor: '#4BC0C0', color: '#FFFFFF' },
 
-};
+// };
 
 
 function ExpenseListComponent(props) {

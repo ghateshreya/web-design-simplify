@@ -1,5 +1,5 @@
 import React from 'react';
-import { Column, Row } from 'simple-flexbox';
+import { Column } from 'simple-flexbox';
 import { createUseStyles } from 'react-jss';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'

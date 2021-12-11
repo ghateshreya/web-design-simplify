@@ -16,7 +16,7 @@ function PrivateRoutes() {
                 <Route exact path={SLUGS.todo} component={ToDo} />
                 <Route exact path={SLUGS.expenses} component={ExpenseComponent} />
                 <Route exact path={SLUGS.collaborate} component={CollaborateComponent} />
-                <Route exact path={SLUGS.settings} render={() => <div>Settings Component</div>} />
+                {/* <Route exact path={SLUGS.settings} render={() => <div>Settings Component</div>} /> */}
                 
                 {/* <Redirect to={SLUGS.dashboard} /> */}
             </Switch>

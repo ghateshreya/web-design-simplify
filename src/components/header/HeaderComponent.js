@@ -5,8 +5,9 @@ import { Row } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
 import { SidebarContext } from 'hooks/useSidebar';
 import SLUGS from 'resources/slugs';
-import { IconBell, IconSearch } from 'assets/icons';
 import DropdownComponent from 'components/dropdown';
+import UserContext from "contexts/userContext";
+import usericon from './usericon.png'
 
 const useStyles = createUseStyles((theme) => ({
     avatar: {
@@ -64,7 +65,11 @@ function HeaderComponent() {
     const { currentItem } = useContext(SidebarContext);
     const theme = useTheme();
     const classes = useStyles({ theme });
-
+    const { user } = useContext(UserContext);
+    // console.log(user);
+    // function onClick(slug, parameters = {}) {
+    //     push(convertSlugToUrl(slug, parameters));
+    // }
     let title;
     switch (true) {
         case currentItem === SLUGS.dashboard:
@@ -73,8 +78,8 @@ function HeaderComponent() {
         case [SLUGS.overview, SLUGS.overviewTwo, SLUGS.overviewThree].includes(currentItem):
             title = 'Overview';
             break;
-        case currentItem === SLUGS.tickets:
-            title = 'Tickets';
+        case currentItem === SLUGS.expenses:
+            title = 'Expenses';
             break;
         case [SLUGS.ideas, SLUGS.ideasTwo, SLUGS.ideasThree].includes(currentItem):
             title = 'Ideas';
@@ -98,9 +103,9 @@ function HeaderComponent() {
             title = '';
     }
 
-    function onSettingsClick() {
-        push(SLUGS.settings);
-    }
+    // function onSettingsClick() {
+    //     push(SLUGS.login);
+    // }
 
     return (
         <Row className={classes.container} vertical='center' horizontal='space-between'>
@@ -140,9 +145,9 @@ function HeaderComponent() {
                 <DropdownComponent
                     label={
                         <>
-                            <span className={classes.name}>Shreya Ghate</span>
+                            <span className={classes.name}>{user.firstName} {user.lastName}</span>
                             <img
-                                src='https://avatars3.githubusercontent.com/u/21162888?s=460&v=4'
+                                src={usericon}
                                 alt='avatar'
                                 className={classes.avatar}
                             />
@@ -150,12 +155,8 @@ function HeaderComponent() {
                     }
                     options={[
                         {
-                            label: 'Settings',
-                            onClick: onSettingsClick
-                        },
-                        {
-                            label: 'Logout',
-                            onClick: () => console.log('logout')
+                            label: 'User',
+                            // onItemClick: onSettingsClick(),
                         }
                     ]}
                     position={{

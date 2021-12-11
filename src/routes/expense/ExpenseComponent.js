@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React from 'react';
 import { Column, Row } from 'simple-flexbox';
 import { createUseStyles } from 'react-jss';
 import TotalCardComponent from './TotalExpense';
@@ -94,14 +94,14 @@ const useStyles = createUseStyles((theme) => ({
         marginTop: '20px',
     }
 }));
-const TAGS = {
-    UTILITIES: { text: 'UTILITIES', backgroundColor: '#FEC400', color: '#FFFFFF' },
-    ENTERTAINMENT: { text: 'ENTERTAINMENT', backgroundColor: '#9966FF', color: '#FFFFFF' },
-    TRAVEL: { text: 'TRAVEL', backgroundColor: '#FF6484', color: '#FFFFFF' },
-    MISC: { text: 'MISC', backgroundColor: '#FF9F3F', color: '#FFFFFF' },
-    FOOD: { text: 'FOOD', backgroundColor: '#4BC0C0', color: '#FFFFFF' },
+// const TAGS = {
+//     UTILITIES: { text: 'UTILITIES', backgroundColor: '#FEC400', color: '#FFFFFF' },
+//     ENTERTAINMENT: { text: 'ENTERTAINMENT', backgroundColor: '#9966FF', color: '#FFFFFF' },
+//     TRAVEL: { text: 'TRAVEL', backgroundColor: '#FF6484', color: '#FFFFFF' },
+//     MISC: { text: 'MISC', backgroundColor: '#FF9F3F', color: '#FFFFFF' },
+//     FOOD: { text: 'FOOD', backgroundColor: '#4BC0C0', color: '#FFFFFF' },
 
-};
+// };
 
 function ExpenseComponent(props) {
     const classes = useStyles();
