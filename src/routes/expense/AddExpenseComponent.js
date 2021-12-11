@@ -3,7 +3,6 @@ import { Column } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
 import { FaRegListAlt, FaUtensils, FaGasPump, FaWifi, FaGamepad } from 'react-icons/fa';
 import './Expense.css';
-import { Row } from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';

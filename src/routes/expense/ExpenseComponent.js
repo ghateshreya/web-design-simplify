@@ -1,6 +1,6 @@
 import React , {useState} from 'react';
 import { Column, Row } from 'simple-flexbox';
-import { createUseStyles, useTheme } from 'react-jss';
+import { createUseStyles } from 'react-jss';
 import TotalCardComponent from './TotalExpense';
 import ExpennseListComponent from './ExpenseListComponent';
 import ExpenseChart from './ExpenseChart';
@@ -110,7 +110,7 @@ function ExpenseComponent(props) {
         "Access-Control-Allow-Methods": "*",
         "Access-Control-Allow-Headers": "'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'",
       }
-    const url = "http://localhost:3000/user/getAll";
+    const url = "https://cloud.mongodb.com/v2/61b41244662c996a014891f4#metrics/replicaSet/61b4139004705d7324b4c82a/explorer/myFirstDatabase/groupcollections/find";
     // const url = "https://jsonplaceholder.typicode.com/posts/1";
     const [post, setPost] = React.useState(null);
 

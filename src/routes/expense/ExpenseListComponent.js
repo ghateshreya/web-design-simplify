@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Row } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
 import CardComponent from 'components/cards/CardComponent';
@@ -64,23 +64,6 @@ function ExpenseListComponent(props) {
 
             })
         })
-    }
-    function getNextTag(current = 'GROUP') {
-        const tagLabels = ['PERSONAL', 'GROUP' ];
-        const tagIndex = (tagLabels.indexOf(current) + 1) % 2;
-        return TAGS[tagLabels[tagIndex]];
-    }
-
-    function onAddButtonClick() {
-        props.setItems((prev) => {
-            const newItems = [...prev];
-            newItems.push({
-                title: `Task ${newItems.length + 1}`,
-                checked: false,
-                tag: getNextTag()
-            });
-            return newItems;
-        });
     }
 
     // function renderAddButton() {
