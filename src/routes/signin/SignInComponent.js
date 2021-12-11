@@ -25,7 +25,6 @@ function Login() {
       setter(e.target.value);
     };
 
-    console.log(email, password);
     // React.useEffect(() => {
     //     axios.get(url).then((res) => {
     //         setUsers(res.data);

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useReducer, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useWindowSize from 'hooks/useWindowSize';
@@ -7,87 +8,55 @@ import PublicRoutes from 'routes/PublicRoutes';
 import UserContext from "../contexts/userContext";
 import axios from 'axios';
 
-// // const FIRSTNAME = "PD";
-// // const LASTNAME = "HH";
-// // const EMAIL = "shreya@gmail.com";
-// // const PASSWORD = "Shreya@12";
-
-// const INITIAL_STATE = {
-//   user: null,
-//   hasLoginError: false
-// };
-
-
-// const validateCredentials = (email, password) =>
-//   email === EMAIL && password === PASSWORD;
-
-// const reducer = (state, action) => {
-//   switch (action.type) {
-//     case "login": {
-//       const { email, password } = action.payload;
-//      console.log(email, password);
-//       if (!validateCredentials(email, password)) {
-//         return {
-//           ...state,
-//           hasLoginError: true,
-//           user: null
-//         };
-//       }
-//     else {
-//         return {
-//         ...state,
-//         hasLoginError: false,
-//         user: {
-//           id: 1,
-//           email: EMAIL,
-//           firstName: FIRSTNAME,
-//           lastName: LASTNAME,
-//           password: PASSWORD
-//         }
-//       };
-//     }
-// }
-      
-//     case "logout":
-//       return {
-//         ...state,
-//         user: null
-//       };
-//     default:
-//       throw new Error(`Invalid action type: ${action.type}`);
-//   }
-// };
-
 function Routes() {
-    // const url = "http://localhost:3000/user/getAll"
-    // const [users, setUsers] = useState([]);
+    const url = "http://localhost:3000/user/getAll"
+    const [users, setUsers] = useState([]);
 
-    // React.useEffect(() => {
-    //     axios.get(url,).then((res) => {
-    //         setUsers(res.data);
-    //         console.log(res.data[0].email);
-    //     });
-    // }, []);
-    // console.log(users)
-    const FIRSTNAME = "PD";
-const LASTNAME = "HH";
-const EMAIL = "shreya@gmail.com";
-const PASSWORD = "Shreya@12";
+    React.useEffect(() => {
+        axios.get(url,).then((res) => {
+            setUsers(res.data);
+            console.log(res.data[0].email);
+        });
+    }, []);
+    // console.log(users);
+    var id = '1';
+    var firstName = "firstname";
+    var lastName = "lastname";
+// const EMAIL = "shreya@gmail.com";
+// const PASSWORD = "Shreya@12";
 
 const INITIAL_STATE = {
     user: null,
     hasLoginError: false
   };
   
-  
-  const validateCredentials = (email, password) =>
-    email === EMAIL && password === PASSWORD;
-  
+
   const reducer = (state, action) => {
     switch (action.type) {
       case "login": {
         const { email, password } = action.payload;
        console.log(email, password);
+       const validateCredentials = (email, password) =>
+       email === email && password === password;
+
+        if (email == 'shreya@gmail.com') {
+            id = '61b47cf09cbab0bebe8bf604',
+            firstName = 'Shreya',
+            lastName = "Ghate"
+        } else if (email == 'pradnyal@gmail.com') {
+            id = '61b47d319cbab0bebe8bf605'
+            firstName = 'Pradnyal',
+            lastName = "Gandhi"
+        } else if (email == 'jinal.m@tcs.com') {
+            id = '61b416a075ba1b60163e71b3'
+            firstName = 'Jinal',
+            lastName = "Mamaniya"
+        } else if (email == 'harshil@gmail.com') {
+            id = '61b47d499cbab0bebe8bf606'
+            firstName = 'Harshil',
+            lastName = "Patel"
+        }
+
         if (!validateCredentials(email, password)) {
           return {
             ...state,
@@ -100,12 +69,13 @@ const INITIAL_STATE = {
           ...state,
           hasLoginError: false,
           user: {
-            id: 1,
-            email: EMAIL,
-            firstName: FIRSTNAME,
-            lastName: LASTNAME,
-            password: PASSWORD
+            id: id,
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            password: password
           }
+        
         };
       }
   }
