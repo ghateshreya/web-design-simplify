@@ -3,8 +3,6 @@ import React,{useState} from 'react';
 import { createUseStyles } from "react-jss";
 import axios from "axios";
 import { Column, Row } from "simple-flexbox";
-import MiniCardComponent from "components/cards/MiniCardComponent";
-import TasksComponent from "routes/dashboard/TasksComponent";
 import { useTheme } from "@emotion/react";
 import CardComponent from "components/cards/CardComponent";
 import { IconCheckboxOn, IconCheckboxOff } from 'assets/icons';
@@ -92,12 +90,6 @@ const useStyles = createUseStyles((theme) => ({
             width: '140vw'
         },
     },
-    addButton: {
-        backgroundColor: theme.color.lightGrayishBlue,
-        color: theme.color.grayishBlue2,
-        fontSize: '20px !important',
-        padding: '7px !important'
-    },
     itemTitle: {
         ...theme.typography.itemTitle,
         color: theme.color.veryDarkGrayishBlue
@@ -107,15 +99,6 @@ const useStyles = createUseStyles((theme) => ({
     },
     greyTitle: {
         color: theme.color.grayishBlue3
-    },
-    tagStyles: {
-        borderRadius: 5,
-        cursor: 'pointer',
-        fontWeight: 'bold',
-        fontSize: 11,
-        letterSpacing: '0.5px',
-        lineHeight: '14px',
-        padding: '5px 12px 5px 12px'
     },
     checkboxWrapper: {
         cursor: 'pointer',
@@ -309,140 +292,6 @@ const ToDo = () => {
         setUserId(userId)
     }
 
-    function renderStat(title, value) {
-        return (
-            <Column
-                flexGrow={1}
-                className={classes.statContainer}
-                vertical='center'
-                horizontal='center'
-            >
-                <span className={classes.statTitle}>{title}</span>
-                <span className={classes.statValue}>{value}</span>
-            </Column>
-        );
-    }
-    function TasksComponent(props) {
-        const theme = useTheme();
-        const classes = useStyles({ theme });
-        const [items, setItems] = useState([
-            { title: 'Finish ticket update', checked: false, tag: TAGS.URGENT },
-            {
-                title: 'Create new ticket example',
-                checked: false,
-                tag: TAGS.NEW
-            },
-            { title: 'Update ticket report', checked: true, tag: TAGS.DEFAULT }
-        ]);
-    
-        function onCheckboxClick(index) {
-            setItems((prev) => {
-                const newItems = [...prev];
-                newItems[index].checked = newItems[index].checked ? false : true;
-                return newItems;
-            });
-        }
-        function getNextTag(current = 'URGENT') {
-            const tagLabels = ['URGENT', 'NEW', 'DEFAULT'];
-            const tagIndex = (tagLabels.indexOf(current) + 1) % 3;
-            return TAGS[tagLabels[tagIndex]];
-        }
-    
-        function onTagClick(index) {
-            setItems((prev) => {
-                const newItems = [...prev];
-                newItems[index].tag = getNextTag(newItems[index].tag.text);
-                return newItems;
-            });
-        }
-    
-        function onAddButtonClick() {
-            setItems((prev) => {
-                const newItems = [...prev];
-                newItems.push({
-                    title: `Task ${newItems.length + 1}`,
-                    checked: false,
-                    tag: getNextTag()
-                });
-                return newItems;
-            });
-        }
-
-
-
-
-function TaskComponent({ classes, index, item = {}, onCheckboxClick, onTagClick }) {
-    const { tag = {} } = item;
-    return (
-        <Row horizontal='space-between' vertical='center'>
-            <Row>
-                <div className={classes.checkboxWrapper} onClick={() => onCheckboxClick(index)}>
-                    {item.checked ? <IconCheckboxOn /> : <IconCheckboxOff />}
-                </div>
-                <span className={classes.itemTitle}>{item.title}</span>
-            </Row>
-            <TagComponent
-                backgroundColor={tag.backgroundColor}
-                classes={classes}
-                color={tag.color}
-                index={index}
-                onClick={onTagClick}
-                text={tag.text}
-            />
-        </Row>
-    );
-}
-
-function TagComponent({ backgroundColor, classes, color, index, onClick, text }) {
-    return (
-        <Row
-            horizontal='center'
-            vertical='center'
-            style={{ backgroundColor, color }}
-            className={classes.tagStyles}
-            onClick={() => onClick(index)}
-        >
-            {text}
-        </Row>
-    );
-}
-    
-        // function renderAddButton() {
-        //     return (
-        //         <Row
-        //             horizontal='center'
-        //             vertical='center'
-        //             className={[classes.tagStyles, classes.addButton].join(' ')}
-        //             onClick={onAddButtonClick}
-        //         >
-        //             +
-        //         </Row>
-        //     );
-        // }
-    
-        return (
-            <CardComponent
-                containerStyles={props.containerStyles}
-                title='Tasks'
-                items={[
-                    <Row horizontal='space-between' vertical='center'>
-                        {/* <span className={[classes.itemTitle, classes.greyTitle].join(' ')}>
-                            Create new task
-                        </span> */}
-                    </Row>,
-                    ...items.map((item, index) => (
-                        <TaskComponent
-                            classes={classes}
-                            index={index}
-                            item={item}
-                            onCheckboxClick={onCheckboxClick}
-                            onTagClick={onTagClick}
-                        />
-                    ))
-                ]}
-            />
-        );
-    }
 
 
     
