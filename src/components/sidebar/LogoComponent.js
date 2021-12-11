@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
-// import Logo from '/simplify-logo.png';
+import Logo from './simplify-logo.png';
 
 const useStyles = createUseStyles((theme) => ({
     container: {
@@ -21,13 +21,8 @@ function LogoComponent() {
     const classes = useStyles({ theme });
     return (
         <Row className={classes.container} horizontal='center' vertical='center'>
-            {/* <Logo /> */}
-            {/* <img
-                src={Logo}
-                alt='avatar'
-            /> */}
-            <img src="/simplify-logo.png" alt="logo" />
-            <span className={classes.title}>Simplify</span>
+            <img src={Logo} alt="logo" />
+            {/* <span className={classes.title}>Simplify</span> */}
         </Row>
     );
 }

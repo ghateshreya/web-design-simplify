@@ -2,12 +2,12 @@ import React from 'react';
 import { Column, Row } from 'simple-flexbox';
 import { createUseStyles } from 'react-jss';
 import MiniCardComponent from 'components/cards/MiniCardComponent';
-import TodayTrendsComponent from './TodayTrendsComponent';
+// import TodayTrendsComponent from './TodayTrendsComponent';
 import UnresolvedTicketsComponent from './UnresolvedTicketsComponent';
 import TasksComponent from './TasksComponent';
-import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import interactionPlugin from '@fullcalendar/interaction'
+// import FullCalendar from '@fullcalendar/react'
+// import dayGridPlugin from '@fullcalendar/daygrid'
+// import interactionPlugin from '@fullcalendar/interaction'
 
 const useStyles = createUseStyles((theme) => ({
     cardsContainer: {
@@ -98,6 +98,7 @@ const useStyles = createUseStyles((theme) => ({
 
 function DashboardComponent() {
     const classes = useStyles();
+
     function renderStat(title, value) {
         return (
             <Column

@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React from 'react';
 import { Column, Row } from 'simple-flexbox';
 import { createUseStyles } from 'react-jss';
 import TotalCardComponent from './TotalExpense';
@@ -94,26 +94,27 @@ const useStyles = createUseStyles((theme) => ({
         marginTop: '20px',
     }
 }));
-const TAGS = {
-    UTILITIES: { text: 'UTILITIES', backgroundColor: '#FEC400', color: '#FFFFFF' },
-    ENTERTAINMENT: { text: 'ENTERTAINMENT', backgroundColor: '#9966FF', color: '#FFFFFF' },
-    TRAVEL: { text: 'TRAVEL', backgroundColor: '#FF6484', color: '#FFFFFF' },
-    MISC: { text: 'MISC', backgroundColor: '#FF9F3F', color: '#FFFFFF' },
-    FOOD: { text: 'FOOD', backgroundColor: '#4BC0C0', color: '#FFFFFF' },
+// const TAGS = {
+//     UTILITIES: { text: 'UTILITIES', backgroundColor: '#FEC400', color: '#FFFFFF' },
+//     ENTERTAINMENT: { text: 'ENTERTAINMENT', backgroundColor: '#9966FF', color: '#FFFFFF' },
+//     TRAVEL: { text: 'TRAVEL', backgroundColor: '#FF6484', color: '#FFFFFF' },
+//     MISC: { text: 'MISC', backgroundColor: '#FF9F3F', color: '#FFFFFF' },
+//     FOOD: { text: 'FOOD', backgroundColor: '#4BC0C0', color: '#FFFFFF' },
 
-};
+// };
 
 function ExpenseComponent(props) {
     const classes = useStyles();
     const url = "http://localhost:3000/expense/getAll";
-    const [post, setPost] = React.useState(null);
+    const [items, setItems] = React.useState([]);
 
     React.useEffect(() => {
         axios.get(url, ).then((response) => {
-        setPost(response.data);
-        console.log(response.data);
+            setItems(response.data);
         });
     }, []);
+   
+    
 
 
 
@@ -132,17 +133,17 @@ function ExpenseComponent(props) {
     }
 
     // State for defining data
-    const [items, setItems] = useState([
-        { title: 'Grocery', tag: TAGS.FOOD, desc:"Stop & Shop", price: "5.99" },
-        {
-            title: 'Transport',
-            tag: TAGS.TRAVEL,
-            desc: "Orange Line",
-            price: "8.99"
-        },
-        {title: 'Food', tag: TAGS.FOOD, desc:"Qdoba",  price: "10.99" }
-    ]);
-
+    // const [items, setItems] = useState([
+    //     { title: 'Grocery', tag: TAGS.FOOD, desc:"Stop & Shop", price: "5.99" },
+    //     {
+    //         title: 'Transport',
+    //         tag: TAGS.TRAVEL,
+    //         desc: "Orange Line",
+    //         price: "8.99"
+    //     },
+    //     {title: 'Food', tag: TAGS.FOOD, desc:"Qdoba",  price: "10.99" }
+    // ]);
+console.log(items)
     return (
         <Column>
             <Row
@@ -194,7 +195,7 @@ function ExpenseComponent(props) {
             >
                 
                 <ExpennseListComponent containerStyles={classes.tasks} setItems={setItems} items={items}/>
-                <ExpenseChart />
+                {/* <ExpenseChart /> */}
             </Row>
         </Column>
     );

@@ -9,7 +9,7 @@ const SignUpComponent = lazy(() => import('./signup'));
 function PublicRoutes() {
     return (
         <Suspense fallback={<LoadingComponent loading />}>
-        <div className="auth-wrapper">
+        <div className="auth-wrapper" style={{marginTop: '30px'}}>
         <div className="auth-inner">
         <Switch>
             <Route path={SLUGS.login} component={SignInComponent} />

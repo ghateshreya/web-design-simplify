@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Column } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
 import { Grid, Typography } from '@material-ui/core';
+import UserContext from "contexts/userContext";
 
 const useStyles = createUseStyles((theme) => ({
     container: {
@@ -42,13 +43,15 @@ function MiniCardComponent({ className = '', title, value }) {
     const theme = useTheme();
     const classes = useStyles({ theme });
     const composedClassName = [classes.container, className].join(' ');
+    const { user } = useContext(UserContext);
+    console.log(user);
     return (
         <Column flexGrow={1} className={composedClassName} horizontal='center' vertical='center'>
             <Grid item xs container direction="column" className={classes.user}>
                 <Grid item className={classes.user}>
                     <Typography variant="body2">Welcome,</Typography>
                     <Typography variant="h6" style={{fontSize: '30px'}}>
-                        Shreya
+                    {user.firstName}
                     </Typography>
                 </Grid>
             </Grid> 

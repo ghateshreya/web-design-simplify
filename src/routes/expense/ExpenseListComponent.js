@@ -2,9 +2,10 @@ import React from 'react';
 import { Row } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
 import CardComponent from 'components/cards/CardComponent';
-import DateComponent from './DateComponent';
+// import DateComponent from './DateComponent';
 import PriceComponent from './PriceComponent';
 import {AiFillDelete} from 'react-icons/ai';
+// import axios from 'axios';
 
 
 const useStyles = createUseStyles((theme) => ({
@@ -22,6 +23,13 @@ const useStyles = createUseStyles((theme) => ({
         color: theme.color.veryDarkGrayishBlue,
         margin: '0px 0px 0px 10px',
         fontSize:16,
+        
+    },
+    itemDesc: {
+        ...theme.typography.itemTitle,
+        color: theme.color.veryDarkGrayishBlue2,
+        margin: '0px 0px 0px 10px',
+        fontSize:15,
         
     },
     itemValue: {
@@ -46,35 +54,27 @@ const useStyles = createUseStyles((theme) => ({
     }
 }));
 
-const TAGS = {
-    UTILITIES: { text: 'UTILITIES', backgroundColor: '#FEC400', color: '#FFFFFF' },
-    ENTERTAINMENT: { text: 'ENTERTAINMENT', backgroundColor: '#9966FF', color: '#FFFFFF' },
-    TRAVEL: { text: 'TRAVEL', backgroundColor: '#FF6484', color: '#FFFFFF' },
-    MISC: { text: 'MISC', backgroundColor: '#FF9F3F', color: '#FFFFFF' },
-    FOOD: { text: 'FOOD', backgroundColor: '#4BC0C0', color: '#FFFFFF' },
+// const TAGS = {
+//     UTILITIES: { text: 'UTILITIES', backgroundColor: '#FEC400', color: '#FFFFFF' },
+//     ENTERTAINMENT: { text: 'ENTERTAINMENT', backgroundColor: '#9966FF', color: '#FFFFFF' },
+//     TRAVEL: { text: 'TRAVEL', backgroundColor: '#FF6484', color: '#FFFFFF' },
+//     MISC: { text: 'MISC', backgroundColor: '#FF9F3F', color: '#FFFFFF' },
+//     FOOD: { text: 'FOOD', backgroundColor: '#4BC0C0', color: '#FFFFFF' },
 
-};
+// };
+
 
 function ExpenseListComponent(props) {
     const theme = useTheme();
     const classes = useStyles({ theme });
 
-    function onCheckboxClick(index) {
-        props.setItems((prev) =>{
-            const newItems = [...prev];
-            newItems.pop({
-                title: index.title,
-                tag: index.tag,
-
-            })
-        })
-    }
-
     return (
+        
         <CardComponent
             containerStyles={props.containerStyles}
             title='Expense List'
             subtitle='List of all your expenses'
+            
             items={[
                 <Row horizontal='space-between' vertical='center'>
                     {/* <span className={[classes.itemTitle, classes.greyTitle].join(' ')}>
@@ -82,26 +82,51 @@ function ExpenseListComponent(props) {
                     </span>
                     {renderAddButton()} */}
                 </Row>,
-                ...props.items.map((item, index) => (
-                    <TaskComponent
-                        classes={classes}
-                        index={index}
-                        item={item}
-                        onCheckboxClick={onCheckboxClick}
-                    />
+                ...props.items.map((exp, index) => (
+                    // <TaskComponent
+                    //     classes={classes}
+                    //     index={index}
+                    //     item={item}
+                    //     onCheckboxClick={onCheckboxClick}
+                    // />
+                    <Row horizontal='space-between' vertical='center'>
+            <Row>
+                <span className={classes.itemTitle} key={index}>{exp.expenseName}</span>
+                
+            </Row>
+            
+
+            <TagComponent
+                
+                backgroundColor= "#bdc3c7"
+                classes={classes}
+                color='#000000'
+                index={index}
+                text={exp.expenseCategory}
+            />
+            <span className={classes.itemDesc}>{exp.expenseDescription}</span>
+            
+            <PriceComponent classes={classes} price={exp.expenseCostInDollars}></PriceComponent>
+            
+            
+        </Row>
                 ))
             ]}
         />
     );
 }
 
+
 function TaskComponent({ classes, index, item = {}, onCheckboxClick, onTagClick }) {
     const { tag = {} } = item;
+    // console.log(item)
+
     return (
+        <>
+        {item.map((exp, i) => (
         <Row horizontal='space-between' vertical='center'>
-            
             <Row>
-                <span className={classes.itemTitle}>{item.title}</span>
+                <span className={classes.itemTitle}>{exp.title}</span>
                 
             </Row>
             <TagComponent
@@ -111,15 +136,17 @@ function TaskComponent({ classes, index, item = {}, onCheckboxClick, onTagClick 
                 index={index}
                 text={tag.text}
             />
-            <span className={classes.itemTitle}>{item.desc}</span>
+            <span className={classes.itemTitle}>{exp.desc}</span>
             
-            <PriceComponent classes={classes} price={item.price}></PriceComponent>
+            <PriceComponent classes={classes} price={exp.price}></PriceComponent>
             <div className={classes.checkboxWrapper} onClick={() => onCheckboxClick(index)}>
                     { <AiFillDelete color='red'/>}
                 </div>
             
             
         </Row>
+        ))}
+        </>
     );
 }
 
