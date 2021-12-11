@@ -6,6 +6,7 @@ import ExpennseListComponent from './ExpenseListComponent';
 import ExpenseChart from './ExpenseChart';
 import AddExpenseComponent from './AddExpenseComponent';
 import axios from 'axios';
+import { json } from 'body-parser';
 
 const useStyles = createUseStyles((theme) => ({
     cardsContainer: {
@@ -106,14 +107,14 @@ const TAGS = {
 function ExpenseComponent(props) {
     const classes = useStyles();
     const url = "http://localhost:3000/expense/getAll";
-    const [post, setPost] = React.useState(null);
+    const [items, setItems] = React.useState([]);
 
     React.useEffect(() => {
         axios.get(url, ).then((response) => {
-        setPost(response.data);
-        console.log(response.data);
+            setItems(response.data);
         });
     }, []);
+   
 
 
 
@@ -132,17 +133,17 @@ function ExpenseComponent(props) {
     }
 
     // State for defining data
-    const [items, setItems] = useState([
-        { title: 'Grocery', tag: TAGS.FOOD, desc:"Stop & Shop", price: "5.99" },
-        {
-            title: 'Transport',
-            tag: TAGS.TRAVEL,
-            desc: "Orange Line",
-            price: "8.99"
-        },
-        {title: 'Food', tag: TAGS.FOOD, desc:"Qdoba",  price: "10.99" }
-    ]);
-
+    // const [items, setItems] = useState([
+    //     { title: 'Grocery', tag: TAGS.FOOD, desc:"Stop & Shop", price: "5.99" },
+    //     {
+    //         title: 'Transport',
+    //         tag: TAGS.TRAVEL,
+    //         desc: "Orange Line",
+    //         price: "8.99"
+    //     },
+    //     {title: 'Food', tag: TAGS.FOOD, desc:"Qdoba",  price: "10.99" }
+    // ]);
+console.log(items)
     return (
         <Column>
             <Row
