@@ -1,6 +1,6 @@
 import "./ToDo.css"
 import React,{useState} from 'react'
-
+import axios from "axios";
 
 
 
@@ -16,23 +16,34 @@ const ToDo = () => {
     const [inputName,setInputName]=useState("");
     const [isEditName,setIsEditName]=useState(null);
     
+    const url = "http://localhost:3000/todo/getAll";
+    // const url = "https://jsonplaceholder.typicode.com/posts/1";
+    const [post, setPost] = React.useState(null);
+
+    React.useEffect(() => {
+        axios.get(url, ).then((response) => {
+        setPost(response.data);
+        console.log(response.data);
+        });
+    }, []);
     
-    const newTask=(e)=>{
+    const newTask= async (e)=>{
         e.preventDefault();
         var name=document.getElementById("inputName").value
         var input=document.getElementById("inputTask").value
         var category=document.getElementById("taskOption").value
         
-        if(input!=="" && category!=="Select One")
+        if(input!=="" && name!=="")
         {
             let taskObj={}
-            taskObj["Name"]=name
-            taskObj["Desc"]=input
-            taskObj["Type"]=category
+            taskObj["toDoName"]=name
+            taskObj["toDoDescription"]=input
+            taskObj["toDoStatus"]=category
             
-            // const res = await axios.post("/todo",taskObj);
+            // const res = await axios.post("/todo/create",taskObj);
+            // console.log(res.data);
             let tempList=task
-            tempList.push(taskObj)
+            tempList.push(taskObj) 
             setTask(tempList)
         
         }
@@ -61,9 +72,9 @@ const ToDo = () => {
         
             setTask(
                 task.map((elem)=>{
-                    if(elem.Desc===isEditItem && elem.Name===isEditName)
+                    if(elem.toDoDescription===isEditItem && elem.toDoName===isEditName)
                     {
-                        return {...elem, Name:inputName, Desc:inputData,Type:category}
+                        return {...elem, toDoName:inputName, toDoDescription:inputData,toDoStatus:category}
                     }
                     return elem
                 })
@@ -95,7 +106,7 @@ const ToDo = () => {
         var category=document.getElementById("taskOption").value
 
         const removeItem = task.filter((t) => {
-            if(t["Type"]===type)
+            if(t["toDoStatus"]===type)
             {
                 if(category==="New")
                 {
@@ -110,7 +121,7 @@ const ToDo = () => {
                     setInprocess(inprocess-1)
                 }
             }
-            return t["Name"] !== id;
+            return t["toDoName"] !== id;
           });
           setTask(removeItem);
     }
@@ -118,27 +129,27 @@ const ToDo = () => {
     function handleModal (taskName,taskDesc,index){
         
         let editItems=task.find((elem)=>{
-            return elem.Name===taskName
+            return elem.toDoName===taskName
         })
         let editDesc=task.find((elem)=>{
-            return elem.Desc==taskDesc
+            return elem.toDoDescription==taskDesc
         })
         console.log(editItems);
-        if(editItems.Type==="New")
+        if(editItems.toDoStatus==="New")
         {
             setNeww(neww-1);
-        }else if(editItems.Type==="Pending")
+        }else if(editItems.toDoStatus==="Pending")
         {
             setPending(pending-1);
         }
-        else if(editItems.Type==="In-process")
+        else if(editItems.toDoStatus==="In-process")
         {
             setInprocess(inprocess-1);
         }
         
         setToggleSubmit(false);
-        setInputData(editDesc.Desc)
-        setInputName(editItems.Name)
+        setInputData(editDesc.toDoDescription)
+        setInputName(editItems.toDoName)
         setIsEditName(taskName)
         setIsEditItem(taskDesc)
     }
@@ -169,17 +180,17 @@ const ToDo = () => {
             <div className="allTasks">
             
                 {task.map((t,index)=>
-                    <div className="task" key={t.Name} > <span className="tN">({t.Name})</span> {t.Desc} <span className="tC"> [{t.Type}]</span> <input type="button" className="btn" onClick={()=>handleModal(t.Name,t.Desc,index)} value="Edit"/><input type="button" className="btn" value="Delete" onClick={()=>handleDelete(t.Name,t.Type)}/> </div>
+                    <div className="task" key={t.toDoDescription} > <span className="tN">({t.toDoName})</span> <span className="tD"> {t.toDoDescription} </span><span className="tC"> [{t.toDoStatus}]</span> <input type="button" className="btn" onClick={()=>handleModal(t.toDoName,t.toDoDescription,index)} value="Edit"/><input type="button" className="btn" value="Delete" onClick={()=>handleDelete(t.toDoName,t.toDoStatus)}/> </div>
             
                 )}
             
             </div>
                 
                 <div className="taskCategories">
-                    <div className="category"><h5> <b>All  {neww+pending+inprocess}</b> </h5>  </div>
-                    <div className="category"><h5> <b>New  {neww}</b> </h5> </div>
-                    <div className="category"><h5> <b>Pending  {pending}</b> </h5> </div>
-                    <div className="category"><h5> <b>In-process  {inprocess}</b> </h5> </div>
+                    <div className="category"><h5 className="All"> <b>All  {neww+pending+inprocess}</b> </h5>  </div>
+                    <div className="category"><h5 className="All"> <b>New  {neww}</b> </h5> </div>
+                    <div className="category"><h5 className="All"> <b>Pending  {pending}</b> </h5> </div>
+                    <div className="category"><h5 className="All"> <b>In-process  {inprocess}</b> </h5> </div>
                     
                 </div>
         
