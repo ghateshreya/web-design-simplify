@@ -60,7 +60,7 @@ const ToDo = () => {
              tempList.push(response.data) 
                 
                 setTask(tempList);
-                // window.location.reload();
+                window.location.reload();
               });
 
             // const res = await axios.post("http://localhost:3000/todo/create",taskObj);
@@ -100,8 +100,9 @@ const ToDo = () => {
         })
         console.log(updt)
         console.log(updt[0].userId[0].email)
-        const res=await axios.put(`http://localhost:3000/todo/edit/${updt[0].userId[0].email}`, updt)
+        const res=await axios.patch(`http://localhost:3000/todo/edit/${updt[0].userId[0].email}`, updt)
             setTask(res.data)
+            console.log(res)
 
             if(category==="New")
             {
@@ -204,21 +205,21 @@ const ToDo = () => {
             
 
             <div className="allTasks">
-            
+            {/* <div className="todoItem"> <input type="button" className="btn" onClick={()=>handleModal(t.toDoName,t.toDoDescription,index,t.userId)} value="Edit"/> </div> */}
                 {task.map((t,index)=>
-                    <div className="task" key="{t.toDoName}" > <span className="tN">({t.toDoName})</span> <span className="tD"> {t.toDoDescription} </span><span className="tC"> [{t.toDoStatus}]</span> <input type="button" className="btn" onClick={()=>handleModal(t.toDoName,t.toDoDescription,index,t.userId)} value="Edit"/><input type="button" className="btn" value="Delete" onClick={()=>handleDelete(t.toDoName,t.toDoStatus)}/> </div>
+                    <div className="task" key="{t.toDoName}" > <div className="todoItem">{t.toDoName}</div><div className="todoItem"> {t.toDoDescription} </div> <div className="todoItem"><b>{t.toDoStatus}</b></div>  <div className="todoItem"> <input type="button" className="btn" value="Delete" onClick={()=>handleDelete(t.toDoName,t.toDoStatus)}/> </div> </div>
             
                 )}
             
             </div>
                 
-                <div className="taskCategories">
+                {/* <div className="taskCategories">
                     <div className="category"><h5 className="All"> <b>All  {neww+pending+inprocess}</b> </h5>  </div>
                     <div className="category"><h5 className="All"> <b>New  {neww}</b> </h5> </div>
                     <div className="category"><h5 className="All"> <b>Pending  {pending}</b> </h5> </div>
                     <div className="category"><h5 className="All"> <b>In-process  {inprocess}</b> </h5> </div>
                     
-                </div>
+                </div> */}
         
             
             
