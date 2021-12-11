@@ -29,13 +29,12 @@
     overflow-x: hidden;
     width: 50%;
     float: left;
-    margin-left: 260px;
+    margin-left: 120px;
     
 }
 .taskCategories{
     display: inline-block;
     width: 20%;
-    
     float: right;
     margin: 50px;
     
@@ -44,7 +43,7 @@
     border: 3px solid #6C63FF;
     width: 99%;
     margin-top: 5px;
-    height: 40px;
+    height: 70px;
     border-radius: 10px;
 }
 .category{
@@ -95,6 +94,7 @@
     border-radius: 10px;
     color: black;
     float: right;
+    
     margin-top: 10px;
     margin-left: 5px;
     margin-right: 5px;
@@ -126,8 +126,14 @@
     height: 40px;
     border: darkgray 3px solid;
     border-radius: 10px;
-    margin-left: -100px;
+    margin-left: 5px;
+    margin-top: -300px;
     
+}
+.inputName{
+    height: 40px;
+    border: darkgray 3px solid;
+    border-radius: 10px;
 }
 .editbtn{
     border:3px solid #6C63FF;
@@ -173,4 +179,5 @@
 }
 .tN .tC{
 position: absolute;
+
 }
