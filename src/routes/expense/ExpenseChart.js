@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { Row } from 'simple-flexbox';
-import CardComponent from 'components/cards/CardComponent';
+import React from 'react';
 import ChartComponent from './ChartComponent';
 import './Expense.css';
 
