@@ -8,6 +8,10 @@ import TasksComponent from './TasksComponent';
 // import FullCalendar from '@fullcalendar/react'
 // import dayGridPlugin from '@fullcalendar/daygrid'
 // import interactionPlugin from '@fullcalendar/interaction'
+import { useHistory } from 'react-router-dom';
+import SLUGS from 'resources/slugs';
+import Button from '@restart/ui/esm/Button';
+import { convertSlugToUrl } from 'resources/utilities';
 
 const useStyles = createUseStyles((theme) => ({
     cardsContainer: {
@@ -21,6 +25,8 @@ const useStyles = createUseStyles((theme) => ({
         }
     },
     miniCardContainer: {
+        backgroundColor: '#FFAE42',
+        color: 'white',
         flexGrow: 1,
         marginRight: 30,
         height: '15vh',
@@ -98,20 +104,23 @@ const useStyles = createUseStyles((theme) => ({
 
 function DashboardComponent() {
     const classes = useStyles();
-
-    function renderStat(title, value) {
-        return (
-            <Column
-                flexGrow={1}
-                className={classes.statContainer}
-                vertical='center'
-                horizontal='center'
-            >
-                <span className={classes.statTitle}>{title}</span>
-                <span className={classes.statValue}>{value}</span>
-            </Column>
-        );
+    const { push } = useHistory();
+    function onClick(slug, parameters = {}) {
+        push(convertSlugToUrl(slug, parameters));
     }
+    // function renderStat(title, value) {
+    //     return (
+    //         <Column
+    //             flexGrow={1}
+    //             className={classes.statContainer}
+    //             vertical='center'
+    //             horizontal='center'
+    //         >
+    //             <span className={classes.statTitle}>{title}</span>
+    //             <span className={classes.statValue}>{value}</span>
+    //         </Column>
+    //     );
+    // }
     return (
         <Column>
             <Row
@@ -130,17 +139,49 @@ function DashboardComponent() {
                 >
                     <MiniCardComponent
                         className={classes.miniCardContainer}
-                        // title='Unresolved'
-                        // value='60'
                     />
-                   
-                    {/* <MiniCardComponent
-                        className={classes.miniCardContainer}
-                        title='Overdue'
-                        value='16'
-                    /> */}
                 </Row>
-                <Row
+                </Row> 
+                <Row className={classes.cardRow}
+                    wrap
+                    flexGrow={1}
+                    horizontal='space-between'
+                    breakpoints={{ 384: 'column' }}>
+                <section class="section pt-0 position-relative pull-top">
+                    <div class="container">
+                        <div class="rounded p-5 bg-white" style={{backgroundColor: 'white', border: '1px solid #DFE0EB'}}>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 mt-5 mt-md-0 text-center">
+                                    <i class="ti-stats-up icon-primary h1"></i>
+                                    <h3 class="mt-4 text-capitalize h5 ">Improve efficiency</h3>
+                                    <p class="regular text-muted">Keep track of your expenses and plan ahead to make the most of your time</p>
+                    
+                                        <Button onClick={() => onClick(SLUGS.expenses)} style={{ color: "white", backgroundColor:  'rgb(108, 99, 255)', border: '1px solid white', borderRadius: '3px' }}>
+                                                Visit
+                                            </Button>
+                                            </div>
+                                <div class="col-lg-4 col-md-6 mt-5 mt-md-0 text-center">
+                                    <i class="ti-calendar icon-primary h1"></i>
+                                    <h3 class="mt-4 text-capitalize h5 ">Stay on schedule</h3>
+                                    <p class="regular text-muted">Never miss your tasks and easily manage your day by prioritizing your daily routine</p>
+                                    <Button onClick={() => onClick(SLUGS.todo)} style={{ color: "white", backgroundColor:  'rgb(108, 99, 255)', border: '1px solid white', borderRadius: '3px' }}>
+                                                Visit
+                                            </Button>
+                                </div>
+                                <div class="col-lg-4 col-md-12 mt-5 mt-lg-0 text-center">
+                                    <i class="ti-world icon-primary h1"></i>
+                                    <h3 class="mt-4 text-capitalize h5 ">Stay connected </h3>
+                                    <p class="regular text-muted">Check availability of your peers to better to manage meetings and discussions</p>
+                                    <Button onClick={() => onClick(SLUGS.collaborate)} style={{ color: "white", backgroundColor:  'rgb(108, 99, 255)', border: '1px solid white', borderRadius: '3px' }}>
+                                                Visit
+                                            </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                </Row>
+                {/* <Row
                     flexGrow={1}
                     wrap
                     className={classes.container}
@@ -153,7 +194,7 @@ function DashboardComponent() {
                         {renderStat('Total Tasks', '15')}
                     </Row>
                 </Row>
-            </Row>
+            </Row> */}
             
             {/* <div className={classes.calendar}>
                 <FullCalendar 
@@ -165,14 +206,14 @@ function DashboardComponent() {
                         // events={this.formatEvents()}
                     />            
             </div> */}
-            <Row
+            {/* <Row
                 horizontal='space-between'
                 className={classes.lastRow}
                 breakpoints={{ 1024: 'column' }}
             >
                 <UnresolvedTicketsComponent containerStyles={classes.unresolvedTickets} />
                 <TasksComponent containerStyles={classes.tasks} />
-            </Row>
+            </Row> */}
         </Column>
     );
 }

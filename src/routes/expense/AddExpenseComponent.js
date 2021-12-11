@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Column } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
 import './Expense.css';
@@ -12,6 +12,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = createUseStyles((theme) => ({
     addButton: {
@@ -154,7 +155,8 @@ function AddExpenseComponent(props) {
     const [expensePrice, setExpensePrice] = React.useState(null);
 
     const [post, setPost] = React.useState(null);
-    
+    const [user, setUser] = useState();
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -163,6 +165,22 @@ function AddExpenseComponent(props) {
     const handleClose = () => {
         setOpen(false);
     }
+
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem("user");
+        if (loggedInUser) {
+          const foundUser = JSON.parse(loggedInUser);
+          setUser(foundUser);
+          console.log(foundUser);
+                }
+      }, []);
+
+      const history = useHistory();
+
+    const redirect = () => {
+        history.push('/dashboard');
+    }
+
     const handleSave = () => {
         setOpen(false);
 
@@ -175,6 +193,10 @@ function AddExpenseComponent(props) {
                 price: expensePrice
             });
             createPOST();
+            redirect();
+                        // localStorage.setItem('user', JSON.stringify(user));
+            // window.location.reload();
+            // localStorage.setItem('user', JSON.stringify(user));
             return newItems;
         });
     };
