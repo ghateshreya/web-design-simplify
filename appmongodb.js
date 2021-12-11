@@ -155,32 +155,34 @@ const toDoCollectionSchema = {
     type: String,
     required: "Status is required",
   },
-  userId: {
-    firstName: {
-      type: String,
-      //required: "First Name is required",
+  userId: [
+    {
+      firstName: {
+        type: String,
+        //required: "First Name is required",
+      },
+      lastName: {
+        type: String,
+      },
+      email: {
+        type: String,
+        //unique: true,
+      },
+      password: {
+        type: String,
+        min: [6],
+        max: 12,
+        required: "Password is required",
+        match: [
+          /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
+          "Password Should Include 1 upper case and 1 special character",
+        ],
+      },
+      groupName: {
+        type: String,
+      },
     },
-    lastName: {
-      type: String,
-    },
-    email: {
-      type: String,
-      unique: true,
-    },
-    password: {
-      type: String,
-      min: [6],
-      max: 12,
-      required: "Password is required",
-      match: [
-        /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
-        "Password Should Include 1 upper case and 1 special character",
-      ],
-    },
-    groupName: {
-      type: String,
-    },
-  },
+  ],
 };
 
 const toDoCollection = mongoose.model("toDoCollection", toDoCollectionSchema);
@@ -201,6 +203,7 @@ app.post("/todo/create", bodyParser.json(), (req, res) => {
 
   // Save the new model instance, passing a callback
   User_instance.save(function (err) {
+    console.log("Err ", err);
     if (err) {
       if (err.name == "MongoError") {
       }
@@ -227,32 +230,34 @@ const expenseCollectionSchema = {
     type: Number,
     required: "Expense Cost in Dollar is required",
   },
-  userId: {
-    firstName: {
-      type: String,
-      //required: "First Name is required",
+  userId: [
+    {
+      firstName: {
+        type: String,
+        //required: "First Name is required",
+      },
+      lastName: {
+        type: String,
+      },
+      email: {
+        type: String,
+        //unique: true,
+      },
+      password: {
+        type: String,
+        min: [6],
+        max: 12,
+        required: "Password is required",
+        match: [
+          /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
+          "Password Should Include 1 upper case and 1 special character",
+        ],
+      },
+      groupName: {
+        type: String,
+      },
     },
-    lastName: {
-      type: String,
-    },
-    email: {
-      type: String,
-      unique: true,
-    },
-    password: {
-      type: String,
-      min: [6],
-      max: 12,
-      required: "Password is required",
-      match: [
-        /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
-        "Password Should Include 1 upper case and 1 special character",
-      ],
-    },
-    groupName: {
-      type: String,
-    },
-  },
+  ],
 };
 
 const expenseCollection = mongoose.model(
@@ -277,6 +282,7 @@ app.post("/expense/create", bodyParser.json(), (req, res) => {
   // Save the new model instance, passing a callback
   User_instance.save(function (err) {
     if (err) {
+      console.log("Err ", err);
       if (err.name == "MongoError") {
       }
     } else {
