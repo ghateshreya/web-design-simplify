@@ -2,8 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
+var cors = require("cors");
 
 const app = express();
+
 app.set("view engine", "ejs");
 
 app.use(
@@ -13,6 +15,7 @@ app.use(
   })
 );
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -20,7 +23,7 @@ app.use(bodyParser.json());
 
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/simplyfyDB2", {
+mongoose.connect("mongodb+srv://simplyfydb:simplyfydb@cluster0.t5adm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
