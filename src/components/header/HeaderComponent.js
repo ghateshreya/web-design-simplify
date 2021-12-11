@@ -7,6 +7,7 @@ import { SidebarContext } from 'hooks/useSidebar';
 import SLUGS from 'resources/slugs';
 import { IconBell, IconSearch } from 'assets/icons';
 import DropdownComponent from 'components/dropdown';
+import UserContext from "contexts/userContext";
 
 const useStyles = createUseStyles((theme) => ({
     avatar: {
@@ -64,6 +65,8 @@ function HeaderComponent() {
     const { currentItem } = useContext(SidebarContext);
     const theme = useTheme();
     const classes = useStyles({ theme });
+    const { user } = useContext(UserContext);
+    console.log(user);
 
     let title;
     switch (true) {
@@ -140,7 +143,7 @@ function HeaderComponent() {
                 <DropdownComponent
                     label={
                         <>
-                            <span className={classes.name}>Shreya Ghate</span>
+                            <span className={classes.name}>{user.firstName} {user.lastName}</span>
                             <img
                                 src='https://avatars3.githubusercontent.com/u/21162888?s=460&v=4'
                                 alt='avatar'
@@ -149,10 +152,6 @@ function HeaderComponent() {
                         </>
                     }
                     options={[
-                        {
-                            label: 'Settings',
-                            onClick: onSettingsClick
-                        },
                         {
                             label: 'Logout',
                             onClick: () => console.log('logout')

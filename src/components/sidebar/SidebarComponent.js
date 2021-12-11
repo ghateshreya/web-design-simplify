@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
 import { useHistory } from 'react-router-dom';
 import SLUGS from 'resources/slugs';
@@ -14,6 +14,7 @@ import { convertSlugToUrl } from 'resources/utilities';
 import LogoComponent from './LogoComponent';
 import Menu from './MenuComponent';
 import MenuItem from './MenuItemComponent';
+import UserContext from "contexts/userContext";
 
 const useStyles = createUseStyles({
     separator: {
@@ -29,10 +30,11 @@ function SidebarComponent() {
     const theme = useTheme();
     const classes = useStyles({ theme });
     const isMobile = window.innerWidth <= 1080;
+    const { user, logout } = (useContext(UserContext));
 
-    async function logout() {
-        push(SLUGS.login);
-    }
+    // async function logout() {
+    //     push(SLUGS.login);
+    // }
 
     function onClick(slug, parameters = {}) {
         push(convertSlugToUrl(slug, parameters));
@@ -70,12 +72,6 @@ function SidebarComponent() {
                 onClick={() => onClick(SLUGS.collaborate)}
             />
             <div className={classes.separator}></div>
-            <MenuItem
-                id={SLUGS.settings}
-                title='Settings'
-                icon={IconSettings}
-                onClick={() => onClick(SLUGS.settings)}
-            />
 
             <MenuItem id='logout' title='Logout' icon={IconLogout} onClick={logout} />
         </Menu>

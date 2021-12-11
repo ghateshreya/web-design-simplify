@@ -98,6 +98,7 @@ const useStyles = createUseStyles((theme) => ({
 
 function DashboardComponent() {
     const classes = useStyles();
+
     function renderStat(title, value) {
         return (
             <Column

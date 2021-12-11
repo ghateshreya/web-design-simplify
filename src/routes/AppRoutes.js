@@ -17,9 +17,9 @@ function AppRoutes() {
             <Switch>
             {/* <div className="auth-wrapper">
             <div className="auth-inner"> */}
-                <Route path={SLUGS.login} component={SignInComponent} />
+                {/* <Route path={SLUGS.login} component={SignInComponent} />
                 <Route path={SLUGS.signup} component={SignUpComponent} />
-                <Route path={SLUGS.forgotPassword} render={() => <div>forgotPassword</div>} />
+                <Route path={SLUGS.forgotPassword} render={() => <div>forgotPassword</div>} /> */}
                 {/* </div>
             </div> */}
                 {/* <Redirect to={SLUGS.login} /> */}
