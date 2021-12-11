@@ -3,7 +3,6 @@ import { Column, Row } from 'simple-flexbox';
 import { createUseStyles } from 'react-jss';
 import TotalCardComponent from './TotalExpense';
 import ExpennseListComponent from './ExpenseListComponent';
-import ExpenseChart from './ExpenseChart';
 import AddExpenseComponent from './AddExpenseComponent';
 import axios from 'axios';
 

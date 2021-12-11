@@ -4,7 +4,6 @@ import { createUseStyles, useTheme } from 'react-jss';
 import CardComponent from 'components/cards/CardComponent';
 // import DateComponent from './DateComponent';
 import PriceComponent from './PriceComponent';
-import {AiFillDelete} from 'react-icons/ai';
 // import axios from 'axios';
 
 
@@ -117,38 +116,38 @@ function ExpenseListComponent(props) {
 }
 
 
-function TaskComponent({ classes, index, item = {}, onCheckboxClick, onTagClick }) {
-    const { tag = {} } = item;
-    // console.log(item)
+// function TaskComponent({ classes, index, item = {}, onCheckboxClick, onTagClick }) {
+//     const { tag = {} } = item;
+//     // console.log(item)
 
-    return (
-        <>
-        {item.map((exp, i) => (
-        <Row horizontal='space-between' vertical='center'>
-            <Row>
-                <span className={classes.itemTitle}>{exp.title}</span>
+//     return (
+//         <>
+//         {item.map((exp, i) => (
+//         <Row horizontal='space-between' vertical='center'>
+//             <Row>
+//                 <span className={classes.itemTitle}>{exp.title}</span>
                 
-            </Row>
-            <TagComponent
-                backgroundColor={tag.backgroundColor}
-                classes={classes}
-                color={tag.color}
-                index={index}
-                text={tag.text}
-            />
-            <span className={classes.itemTitle}>{exp.desc}</span>
+//             </Row>
+//             <TagComponent
+//                 backgroundColor={tag.backgroundColor}
+//                 classes={classes}
+//                 color={tag.color}
+//                 index={index}
+//                 text={tag.text}
+//             />
+//             <span className={classes.itemTitle}>{exp.desc}</span>
             
-            <PriceComponent classes={classes} price={exp.price}></PriceComponent>
-            <div className={classes.checkboxWrapper} onClick={() => onCheckboxClick(index)}>
-                    { <AiFillDelete color='red'/>}
-                </div>
+//             <PriceComponent classes={classes} price={exp.price}></PriceComponent>
+//             <div className={classes.checkboxWrapper} onClick={() => onCheckboxClick(index)}>
+//                     { <AiFillDelete color='red'/>}
+//                 </div>
             
             
-        </Row>
-        ))}
-        </>
-    );
-}
+//         </Row>
+//         ))}
+//         </>
+//     );
+// }
 
 function TagComponent({ backgroundColor, classes, color, index, onClick, text }) {
     return (

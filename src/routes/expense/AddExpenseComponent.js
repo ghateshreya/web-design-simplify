@@ -84,13 +84,6 @@ const useStyles = createUseStyles((theme) => ({
             }
         }
     },
-    title: {
-        ...theme.typography.cardTitle,
-        color: theme.color.grayishBlue2,
-        marginBottom: 12,
-        minWidth: 102,
-        textAlign: 'center'
-    },
     value: {
         color: theme.color.veryDarkGrayishBlue,
         fontWeight: 'bold',
@@ -155,6 +148,8 @@ function AddExpenseComponent(props) {
     const [expensePrice, setExpensePrice] = React.useState(null);
 
     const [post, setPost] = React.useState(null);
+    console.log(post);
+    
     const [user, setUser] = useState();
 
 
