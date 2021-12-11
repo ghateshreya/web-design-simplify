@@ -5,6 +5,7 @@ import CardComponent from 'components/cards/CardComponent';
 import DateComponent from './DateComponent';
 import PriceComponent from './PriceComponent';
 import {AiFillDelete} from 'react-icons/ai';
+import axios from 'axios';
 
 
 const useStyles = createUseStyles((theme) => ({
@@ -68,18 +69,6 @@ function ExpenseListComponent(props) {
     const theme = useTheme();
     const classes = useStyles({ theme });
 
-    function onCheckboxClick(index) {
-        props.setItems((prev) =>{
-            const newItems = [...prev];
-            newItems.pop({
-                title: index.title,
-                tag: index.tag,
-
-            })
-        })
-    }
-    
-
     return (
         
         <CardComponent
@@ -116,9 +105,6 @@ function ExpenseListComponent(props) {
             <span className={classes.itemDesc}>{exp.expenseDescription}</span>
             
             <PriceComponent classes={classes} price={exp.expenseCostInDollars}></PriceComponent>
-            <div className={classes.checkboxWrapper} onClick={() => onCheckboxClick(index)}>
-                    { <AiFillDelete color='red'/>}
-                </div>
             
             
         </Row>
