@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss';
-import axios from 'axios';
 
 const useStyles = createUseStyles((theme) => ({
     calendar: {

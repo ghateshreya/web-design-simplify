@@ -3,9 +3,6 @@ import React,{useState} from 'react';
 import { createUseStyles } from "react-jss";
 import axios from "axios";
 import { Column, Row } from "simple-flexbox";
-import { useTheme } from "@emotion/react";
-import CardComponent from "components/cards/CardComponent";
-import { IconCheckboxOn, IconCheckboxOff } from 'assets/icons';
 import { useHistory } from 'react-router-dom';
 
 const useStyles = createUseStyles((theme) => ({
