@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { createUseStyles } from 'react-jss';
 import UserContext from "contexts/userContext";
+// import axios from 'axios';
 
 const useStyles = createUseStyles((theme) => ({
     calendar: {
@@ -12,7 +13,9 @@ function Login() {
     const { login, hasLoginError } = useContext(UserContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-  
+    // const [users, setUsers] = useState(null);
+    // const url = "http://localhost:3000/user/getAll"
+
     const onSubmit = e => {
       e.preventDefault();
       login(email, password);
@@ -23,12 +26,17 @@ function Login() {
     };
 
     console.log(email, password);
-
+    // React.useEffect(() => {
+    //     axios.get(url).then((res) => {
+    //         setUsers(res.data);
+    //     });
+    // }, []);
+    // console.log(users);
 
     // render() {
         return (
             <form onSubmit={onSubmit}>
-                <h3>Sign In</h3>
+                <h3>Login</h3>
                 {hasLoginError && (
                     <div className="login-form-error">
                     Login Failed: Incorrect Credentials
@@ -51,7 +59,7 @@ function Login() {
                     </div>
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-block" onSubmit={onSubmit}>Submit</button>
+                <button type="submit" className="btn btn-block" style={{backgroundColor: 'rgb(108, 99, 255)', color: 'white'}} onSubmit={onSubmit}>Submit</button>
                 {/* <p className="forgot-password text-right">
                     Forgot <a href="#">password?</a>
                 </p> */}

@@ -1,62 +1,125 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useWindowSize from 'hooks/useWindowSize';
 import PrivateSection from 'routes/PrivateSection';
 import PublicRoutes from 'routes/PublicRoutes';
 // import AppRoutes from 'routes/AppRoutes';
 import UserContext from "../contexts/userContext";
+import axios from 'axios';
 
-const FIRSTNAME = "PD";
+// // const FIRSTNAME = "PD";
+// // const LASTNAME = "HH";
+// // const EMAIL = "shreya@gmail.com";
+// // const PASSWORD = "Shreya@12";
+
+// const INITIAL_STATE = {
+//   user: null,
+//   hasLoginError: false
+// };
+
+
+// const validateCredentials = (email, password) =>
+//   email === EMAIL && password === PASSWORD;
+
+// const reducer = (state, action) => {
+//   switch (action.type) {
+//     case "login": {
+//       const { email, password } = action.payload;
+//      console.log(email, password);
+//       if (!validateCredentials(email, password)) {
+//         return {
+//           ...state,
+//           hasLoginError: true,
+//           user: null
+//         };
+//       }
+//     else {
+//         return {
+//         ...state,
+//         hasLoginError: false,
+//         user: {
+//           id: 1,
+//           email: EMAIL,
+//           firstName: FIRSTNAME,
+//           lastName: LASTNAME,
+//           password: PASSWORD
+//         }
+//       };
+//     }
+// }
+      
+//     case "logout":
+//       return {
+//         ...state,
+//         user: null
+//       };
+//     default:
+//       throw new Error(`Invalid action type: ${action.type}`);
+//   }
+// };
+
+function Routes() {
+    // const url = "http://localhost:3000/user/getAll"
+    // const [users, setUsers] = useState([]);
+
+    // React.useEffect(() => {
+    //     axios.get(url,).then((res) => {
+    //         setUsers(res.data);
+    //         console.log(res.data[0].email);
+    //     });
+    // }, []);
+    // console.log(users)
+    const FIRSTNAME = "PD";
 const LASTNAME = "HH";
 const EMAIL = "shreya@gmail.com";
 const PASSWORD = "Shreya@12";
 
 const INITIAL_STATE = {
-  user: null,
-  hasLoginError: false
-};
-
-const validateCredentials = (email, password) =>
-  email === EMAIL && password === PASSWORD;
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "login": {
-      const { email, password } = action.payload;
-     console.log(email, password);
-      if (!validateCredentials(email, password)) {
-        return {
+    user: null,
+    hasLoginError: false
+  };
+  
+  
+  const validateCredentials = (email, password) =>
+    email === EMAIL && password === PASSWORD;
+  
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "login": {
+        const { email, password } = action.payload;
+       console.log(email, password);
+        if (!validateCredentials(email, password)) {
+          return {
+            ...state,
+            hasLoginError: true,
+            user: null
+          };
+        }
+      else {
+          return {
           ...state,
-          hasLoginError: true,
-          user: null
+          hasLoginError: false,
+          user: {
+            id: 1,
+            email: EMAIL,
+            firstName: FIRSTNAME,
+            lastName: LASTNAME,
+            password: PASSWORD
+          }
         };
       }
-    else {
-        return {
-        ...state,
-        hasLoginError: false,
-        user: {
-          id: 1,
-          email: EMAIL,
-          firstName: FIRSTNAME,
-          lastName: LASTNAME,
-          password: PASSWORD
-        }
-      };
-    }
-}
-      
-    case "logout":
-      return {
-        ...state,
-        user: null
-      };
-    default:
-      throw new Error(`Invalid action type: ${action.type}`);
   }
-};
+        
+      case "logout":
+        return {
+          ...state,
+          user: null
+        };
+      default:
+        throw new Error(`Invalid action type: ${action.type}`);
+    }
+  };
 
-function Routes() {
     const { pathname } = useLocation();
     // eslint-disable-next-line no-unused-vars
     const [width, height] = useWindowSize();

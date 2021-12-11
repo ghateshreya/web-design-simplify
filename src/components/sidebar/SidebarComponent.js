@@ -30,7 +30,7 @@ function SidebarComponent() {
     const theme = useTheme();
     const classes = useStyles({ theme });
     const isMobile = window.innerWidth <= 1080;
-    const { user, logout } = (useContext(UserContext));
+    const { logout } = (useContext(UserContext));
 
     // async function logout() {
     //     push(SLUGS.login);
