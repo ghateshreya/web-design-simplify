@@ -6,7 +6,6 @@ import ExpennseListComponent from './ExpenseListComponent';
 import ExpenseChart from './ExpenseChart';
 import AddExpenseComponent from './AddExpenseComponent';
 import axios from 'axios';
-import { json } from 'body-parser';
 
 const useStyles = createUseStyles((theme) => ({
     cardsContainer: {
@@ -115,6 +114,7 @@ function ExpenseComponent(props) {
         });
     }, []);
    
+    
 
 
 
@@ -195,7 +195,7 @@ console.log(items)
             >
                 
                 <ExpennseListComponent containerStyles={classes.tasks} setItems={setItems} items={items}/>
-                <ExpenseChart />
+                {/* <ExpenseChart /> */}
             </Row>
         </Column>
     );

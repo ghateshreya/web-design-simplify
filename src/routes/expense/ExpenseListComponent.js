@@ -5,7 +5,6 @@ import CardComponent from 'components/cards/CardComponent';
 import DateComponent from './DateComponent';
 import PriceComponent from './PriceComponent';
 import {AiFillDelete} from 'react-icons/ai';
-import axios from 'axios';
 
 
 const useStyles = createUseStyles((theme) => ({
@@ -65,7 +64,6 @@ const TAGS = {
 
 
 function ExpenseListComponent(props) {
-    console.log(props.items);
     const theme = useTheme();
     const classes = useStyles({ theme });
 
@@ -95,10 +93,13 @@ function ExpenseListComponent(props) {
                 <span className={classes.itemTitle} key={index}>{exp.expenseName}</span>
                 
             </Row>
+            
+
             <TagComponent
+                
                 backgroundColor= "#bdc3c7"
                 classes={classes}
-                color={exp.expenseCategory.color}
+                color='#000000'
                 index={index}
                 text={exp.expenseCategory}
             />
@@ -117,7 +118,7 @@ function ExpenseListComponent(props) {
 
 function TaskComponent({ classes, index, item = {}, onCheckboxClick, onTagClick }) {
     const { tag = {} } = item;
-    console.log(item)
+    // console.log(item)
 
     return (
         <>
