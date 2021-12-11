@@ -5,7 +5,6 @@ import TotalCardComponent from './TotalExpense';
 import ExpennseListComponent from './ExpenseListComponent';
 import ExpenseChart from './ExpenseChart';
 import AddExpenseComponent from './AddExpenseComponent';
-import { FaHamburger, FaGasPump, FaShoppingBag } from "react-icons/fa";
 import axios from 'axios';
 
 const useStyles = createUseStyles((theme) => ({
@@ -95,27 +94,22 @@ const useStyles = createUseStyles((theme) => ({
         marginTop: '20px',
     }
 }));
-
-
-
 const TAGS = {
-    PERSONAL: { text: 'PERSONAL', backgroundColor: '#FEC400', color: '#FFFFFF' },
-    GROUP: { text: 'GROUP', backgroundColor: '#29CC97', color: '#FFFFFF' }
+    UTILITIES: { text: 'UTILITIES', backgroundColor: '#FEC400', color: '#FFFFFF' },
+    ENTERTAINMENT: { text: 'ENTERTAINMENT', backgroundColor: '#9966FF', color: '#FFFFFF' },
+    TRAVEL: { text: 'TRAVEL', backgroundColor: '#FF6484', color: '#FFFFFF' },
+    MISC: { text: 'MISC', backgroundColor: '#FF9F3F', color: '#FFFFFF' },
+    FOOD: { text: 'FOOD', backgroundColor: '#4BC0C0', color: '#FFFFFF' },
+
 };
 
 function ExpenseComponent(props) {
     const classes = useStyles();
-    const headers = {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "*",
-        "Access-Control-Allow-Headers": "'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'",
-      }
-    const url = "https://cloud.mongodb.com/v2/61b41244662c996a014891f4#metrics/replicaSet/61b4139004705d7324b4c82a/explorer/myFirstDatabase/groupcollections/find";
-    // const url = "https://jsonplaceholder.typicode.com/posts/1";
+    const url = "http://localhost:3000/expense/getAll";
     const [post, setPost] = React.useState(null);
 
     React.useEffect(() => {
-        axios.get(url, {headers}).then((response) => {
+        axios.get(url, ).then((response) => {
         setPost(response.data);
         console.log(response.data);
         });
@@ -139,15 +133,14 @@ function ExpenseComponent(props) {
 
     // State for defining data
     const [items, setItems] = useState([
-        { icon: <FaShoppingBag/> ,title: 'Grocery', tag: TAGS.PERSONAL, date:'Dec 11, 2021', price: "5.99" },
+        { title: 'Grocery', tag: TAGS.FOOD, desc:"Stop & Shop", price: "5.99" },
         {
-            icon: <FaGasPump />,
             title: 'Transport',
-            tag: TAGS.GROUP,
-            date:'Dec 10, 2021',
+            tag: TAGS.TRAVEL,
+            desc: "Orange Line",
             price: "8.99"
         },
-        { icon: <FaHamburger/>, title: 'Food', checked: true, tag: TAGS.PERSONAL, date:'Dec 07, 2021', price: "10.99" }
+        {title: 'Food', tag: TAGS.FOOD, desc:"Qdoba",  price: "10.99" }
     ]);
 
     return (
@@ -194,15 +187,6 @@ function ExpenseComponent(props) {
                 </Row>
                 
             </Row>
-            {/* <Row className={classes.cardsContainer}
-                wrap
-                flexGrow={1}
-                horizontal='space-between'
-                breakpoints={{ 768: 'column' }}>
-                    <AddExpenseForm />
-
-
-            </Row> */}
             <Row
                 horizontal='space-between'
                 className={classes.lastRow}

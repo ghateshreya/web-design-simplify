@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Column } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
-import { FaRegListAlt, FaUtensils, FaGasPump, FaWifi, FaGamepad } from 'react-icons/fa';
 import './Expense.css';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -12,6 +11,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
+import axios from 'axios';
 
 const useStyles = createUseStyles((theme) => ({
     addButton: {
@@ -99,43 +99,15 @@ const useStyles = createUseStyles((theme) => ({
         textAlign: 'center'
     }
 }));
-const TAGS = {
-    PERSONAL: { text: 'PERSONAL', backgroundColor: '#FEC400', color: '#FFFFFF' },
-    GROUP: { text: 'GROUP', backgroundColor: '#29CC97', color: '#FFFFFF' }
-};
-const CATEGORY = [
-    {
-        value: <FaWifi />,
-        label: 'Utilities',
-    },
-    {
-        value: <FaGamepad />,
-        label: 'Entertainment',
-    },
-    {
-        value: <FaGasPump />,
-        label: 'Travel',
-    },
-    {
-        value: <FaRegListAlt />,
-        label: 'Misc',
-    },
-    {
-        value: <FaUtensils />,
-        label: 'Food',
-    },
-];
 
-const TAG = [
-    {
-        value: TAGS.PERSONAL,
-        label: 'Personal'
-    },
-    {
-        value: TAGS.GROUP,
-        label: 'Group'
-    }
-]
+const TAGS = {
+    UTILITIES: { text: 'UTILITIES', backgroundColor: '#FEC400', color: '#FFFFFF' },
+    ENTERTAINMENT: { text: 'ENTERTAINMENT', backgroundColor: '#9966FF', color: '#FFFFFF' },
+    TRAVEL: { text: 'TRAVEL', backgroundColor: '#FF6484', color: '#FFFFFF' },
+    MISC: { text: 'MISC', backgroundColor: '#FF9F3F', color: '#FFFFFF' },
+    FOOD: { text: 'FOOD', backgroundColor: '#4BC0C0', color: '#FFFFFF' },
+
+};
 
 function AddExpenseComponent(props) {
     const theme = useTheme();
@@ -152,13 +124,37 @@ function AddExpenseComponent(props) {
             setModal(false)
         }
     }
+    const TAG = [
+        {
+            value: TAGS.UTILITIES,
+            label: 'Utilities',
+        },
+        {
+            value: TAGS.ENTERTAINMENT,
+            label: 'Entertainment',
+        },
+        {
+            value: TAGS.TRAVEL,
+            label: 'Travel',
+        },
+        {
+            value: TAGS.MISC,
+            label: 'Misc',
+        },
+        {
+            value: TAGS.FOOD,
+            label: 'Food',
+        },
+    ];
 
     const [open, setOpen] = React.useState(false);
     const [expenseTitle, setExpenseTitle] = React.useState(null);
-    const [categories, setCategories] = React.useState(null);
+    const [expenseDesc, setExpenseDesc] =  React.useState(null);
     const [expenseTags, setExpenseTags] = React.useState(null);
-    const [expenseDate, setExpenseDates] = React.useState(null);
     const [expensePrice, setExpensePrice] = React.useState(null);
+
+    const [post, setPost] = React.useState(null);
+    
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -173,36 +169,53 @@ function AddExpenseComponent(props) {
         props.setItems((prev) => {
             const newItems = [...prev];
             newItems.push({
-                icon: categories,
                 title: expenseTitle,
                 tag: expenseTags,
-                date: expenseDate,
+                desc: expenseDesc,
                 price: expensePrice
             });
+            // createPOST();
             return newItems;
         });
     };
+    
+    const url = "http://localhost:3000/expense/create";
+    React.useEffect(() => {
+    axios.get(url).then((response) => {
+    setPost(response.data);
+    });
+    }, []);
 
-    const handleChange = (event) => {
-        setCategories(event.target.value);
-    };
+    function createPOST(){
+        
+        axios.post(url, 
+            {
+
+                "expenseName":expenseTitle,
+                "expenseDescription":"Desc",
+                "expenseCategory": expenseTags.text,
+                "expenseCostInDollars": expensePrice,
+                "userId":{"firstName" : "Jinal",
+                    "lastName": "Mamaniya",
+                    "email":"jinal.m@tcs.com",
+                    "password":"Password@4125",
+                    "groupName":"Web Project"
+            }   
+        }).then((response) =>{
+            setPost(response.data);
+          });
+    }
 
     const handleTagChange = (event) => {
-        console.log(event.target.value);
-        if(event.target.value === "Personal"){
-            setExpenseTags(event.target.value)
-        }
-        else{
-            setExpenseTags(event.target.value);
-        }
-        
+        console.log(event.target.value)
+        setExpenseTags(event.target.value);
     };
 
     const handleTitleChange = (event) => {
         setExpenseTitle(event.target.value);
     };
-    const handleDateChange = (event) => {
-        setExpenseDates(event.target.value);
+    const handleDescChange = (event) => {
+        setExpenseDesc(event.target.value);
     };
     const handlePriceChange = (event) => {
         setExpensePrice(event.target.value);
@@ -229,26 +242,14 @@ function AddExpenseComponent(props) {
                     <DialogTitle>Add New Expense</DialogTitle>
                     <DialogContent>
                         <RedBar />
-                        {/* Select Tag */}
-                        <TextField fullWidth
-                            id="outlined-select-currency"
-                            select
-                            label="Category"
-                            value={categories}
-                            onChange={handleChange}
-                        >
-                            {CATEGORY.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-
-                        <RedBar />
 
                         {/* Title */}
                         <DialogContentText>
                             <TextField id="outlined-basic" label="Title" variant="outlined" onChange={handleTitleChange} />
+                        </DialogContentText>
+                        <RedBar />
+                        <DialogContentText>
+                            <TextField id="outlined-basic" label="Description" variant="outlined" onChange={handleDescChange} />
                         </DialogContentText>
                         <RedBar />
 
@@ -266,10 +267,6 @@ function AddExpenseComponent(props) {
                             ))}
                         </TextField>
 
-                        <RedBar />
-                        <DialogContentText>
-                            <TextField id="outlined-basic" label="Date" variant="outlined" onChange={handleDateChange} />
-                        </DialogContentText>
                         <RedBar />
 
 
