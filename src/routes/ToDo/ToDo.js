@@ -8,6 +8,7 @@ import TasksComponent from "routes/dashboard/TasksComponent";
 import { useTheme } from "@emotion/react";
 import CardComponent from "components/cards/CardComponent";
 import { IconCheckboxOn, IconCheckboxOff } from 'assets/icons';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = createUseStyles((theme) => ({
     cardsContainer: {
@@ -148,7 +149,11 @@ const ToDo = () => {
     const url = "http://localhost:3000/todo/getAll";
     // const url = "https://jsonplaceholder.typicode.com/posts/1";
     const [post, setPost] = React.useState(null);
+    const history = useHistory();
 
+    const redirect = () => {
+        history.push('/dashboard');
+    }
     React.useEffect(() => {
         axios.get(url, ).then((response) => {
         setTask(response.data);
@@ -188,14 +193,9 @@ const ToDo = () => {
              tempList.push(response.data) 
                 
                 setTask(tempList);
-                window.location.reload();
+                // window.location.reload();
+                redirect();
               });
-
-            // const res = await axios.post("http://localhost:3000/todo/create",taskObj);
-            // console.log(res.data);
-            // let tempList=task
-            // tempList.push(taskObj) 
-            // setTask(tempList)
         
         }
 
