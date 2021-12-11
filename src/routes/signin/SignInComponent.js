@@ -13,7 +13,7 @@ function Login() {
     const { login, hasLoginError } = useContext(UserContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    // const [users, setUsers] = useState(null);
+    const [user, setUser] = useState();
     // const url = "http://localhost:3000/user/getAll"
 
     const onSubmit = e => {

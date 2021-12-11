@@ -11,11 +11,27 @@ import axios from 'axios';
 function Routes() {
     const url = "http://localhost:3000/user/getAll"
     const [users, setUsers] = useState([]);
+    const [user, setUser] = useState();
 
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem("user");
+        if (loggedInUser) {
+          const foundUser = JSON.parse(loggedInUser);
+          setUser(foundUser);
+          console.log(foundUser);
+                }
+      }, []);
+      
     React.useEffect(() => {
         axios.get(url,).then((res) => {
             setUsers(res.data);
             console.log(res.data[0].email);
+        //     const user = { email, password };
+
+        //     // set the state of the user
+        //   setUser(res.data);
+        //   // store the user in localStorage
+        //   localStorage.setItem("user", JSON.stringify(res.data));
         });
     }, []);
     // console.log(users);
@@ -56,6 +72,13 @@ const INITIAL_STATE = {
             firstName = 'Harshil',
             lastName = "Patel"
         }
+
+        const user = { email, password };
+
+            // set the state of the user
+          setUser(user);
+          // store the user in localStorage
+          localStorage.setItem("user", JSON.stringify(user));
 
         if (!validateCredentials(email, password)) {
           return {
