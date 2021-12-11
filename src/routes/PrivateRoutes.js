@@ -6,12 +6,9 @@ import LoadingComponent from 'components/loading';
 const DashboardComponent = lazy(() => import('./dashboard'));
 const CollaborateComponent = lazy(() => import('./collaborate'));
 const ExpenseComponent = lazy(() => import('./expense'));
-const ToDo=lazy(()=> import('./ToDo'));
+const ToDo=lazy(()=> import('./todo'));
 
-// const SignInComponent = lazy(() => import('./signin'));
-// const SignUpComponent = lazy(() => import('./signup'));
-
-function AppRoutes() {
+function PrivateRoutes() {
     return (
         <Suspense fallback={<LoadingComponent loading />}>
             <Switch>
@@ -19,13 +16,12 @@ function AppRoutes() {
                 <Route exact path={SLUGS.todo} component={ToDo} />
                 <Route exact path={SLUGS.expenses} component={ExpenseComponent} />
                 <Route exact path={SLUGS.collaborate} component={CollaborateComponent} />
-                <Route exact path={SLUGS.settings} render={() => <div>Settings Component</div>} />
+                {/* <Route exact path={SLUGS.settings} render={() => <div>Settings Component</div>} /> */}
                 
-                <Redirect to={SLUGS.dashboard} />
+                {/* <Redirect to={SLUGS.dashboard} /> */}
             </Switch>
-            
         </Suspense>
     );
 }
 
-export default AppRoutes;
+export default PrivateRoutes;

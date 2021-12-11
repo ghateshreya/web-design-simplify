@@ -1,148 +1,183 @@
 import "./ToDo.css"
 import React,{useState} from 'react'
-
+import axios from "axios";
 
 
 
 const ToDo = () => {
-    var [work,setWork]= useState(0)
-    var [other,setOther]= useState(0)
-    var [family,setFamily]= useState(0)
-    var [personal,setPersonal]= useState(0)
+    var [inprocess,setInprocess]= useState(0)
+    var [pending,setPending]= useState(0)
+    var [neww,setNeww]= useState(0)
+    
     const [task,setTask]= useState([])
     const [toggleSubmit,setToggleSubmit]=useState(true)    
     const [inputData, setInputData]=useState("")
     const [isEditItem,setIsEditItem]=useState(null);
-    
-     
-    
-    const newTask=(e)=>{
-        e.preventDefault();
+    const [inputName,setInputName]=useState("");
+    const [isEditName,setIsEditName]=useState(null);
+    const [userId,setUserId]=useState("")
+
+    const url = "http://localhost:3000/todo/getAll";
+    // const url = "https://jsonplaceholder.typicode.com/posts/1";
+    const [post, setPost] = React.useState(null);
+
+    React.useEffect(() => {
+        axios.get(url, ).then((response) => {
+        setTask(response.data);
+        // console.log(response.data);
+        });
+    }, []);
+    console.log(post)
+    const newTask= async (e)=>{
+        // e.preventDefault();
+        var name=document.getElementById("inputName").value
         var input=document.getElementById("inputTask").value
         var category=document.getElementById("taskOption").value
         
-        if(input!=="" && category!=="Select One")
+        if(input!=="" && name!=="")
         {
-            let taskObj={}
-            taskObj["Name"]=input
-            taskObj["Type"]=category
+            // let taskObj={}
+            // taskObj["toDoName"]=name
+            // taskObj["toDoDescription"]=input
+            // taskObj["toDoStatus"]=category
             
-            let tempList=task
-            tempList.push(taskObj)
-            setTask(tempList)
+
+            await axios.post("http://localhost:3000/todo/create", 
+                {
+    
+                    "toDoName":name,
+                    "toDoDescription":input,
+                    "toDoStatus": category,
+                    
+                    "userId":{"firstName" : "Jinal",
+                        "lastName": "Mamaniya",
+                        "email":"jinal.m@tcs.com",
+                        "password":"Password@4125",
+                        "groupName":"Web Project"
+                }   
+            }).then((response) =>{
+                let tempList=task
+             tempList.push(response.data) 
+                
+                setTask(tempList);
+                // window.location.reload();
+              });
+
+            // const res = await axios.post("http://localhost:3000/todo/create",taskObj);
+            // console.log(res.data);
+            // let tempList=task
+            // tempList.push(taskObj) 
+            // setTask(tempList)
+        
         }
 
-        if(category==="Work")
+        if(category==="New")
         {
-            setWork(work+1)
+            setNeww(neww+1)
         }
-        else if(category==="Other")
+        else if(category==="Pending")
         {
-            setOther(other+1)
+            setPending(pending+1)
         }
-        else if(category==="Personal")
+        else if(category==="In-process")
         { 
-            setPersonal(personal+1)
+            setInprocess(inprocess+1)
         }
-        else if(category==="Family") 
-        {
-            setFamily(family+1)
-        }
+        
 
         
     }
 
-    function updated(){
+    const updated= async ()=>{
         var category=document.getElementById("taskOption").value
 
-        
-        
-            setTask(
-                task.map((elem)=>{
-                    if(elem.Name===isEditItem)
-                    {
-                        
-                        
-                        return {...elem, Name:inputData, Type:category}
-                    }
-                    return elem
-                })
-            )
+        let updt=task.map((elem)=>{
+            if(elem.toDoDescription===isEditItem && elem.toDoName===isEditName)
+            {
+                return {...elem, toDoName:inputName, toDoDescription:inputData,toDoStatus:category, userId:userId}
+            }
+            return elem
+        })
+        console.log(updt)
+        console.log(updt[0].userId[0].email)
+        const res=await axios.put(`http://localhost:3000/todo/edit/${updt[0].userId[0].email}`, updt)
+            setTask(res.data)
 
-        if(category==="Work")
-        {
-            setWork(work+1)
-        }
-        else if(category==="Other")
-        {
-            setOther(other+1)
-        }
-        else if(category==="Personal")
-        { 
-            setPersonal(personal+1)
-        }
-        else if(category==="Family") 
-        {
-            setFamily(family+1)
-        }
+            if(category==="New")
+            {
+                setNeww(neww+1)
+            }
+            else if(category==="Pending")
+            {
+                setPending(pending+1)
+            }
+            else if(category==="In-process")
+            { 
+                setInprocess(inprocess+1)
+            }
 
             setToggleSubmit(true);
             setInputData("")
             setIsEditItem(null)
+            setIsEditName(null)
+            setInputName("")
         
     }
 
-    function handleDelete(id,type)
+    const handleDelete = async (id,type)=>
     {
+        var category=document.getElementById("taskOption").value
+
         const removeItem = task.filter((t) => {
-            if(t["Type"]===type)
+            if(t["toDoStatus"]===type)
             {
-                if(type==="Work")
+                if(category==="New")
                 {
-                    setWork(work-1);
+                    setNeww(neww-1)
                 }
-                if(type==="Personal")
+                else if(category==="Pending")
                 {
-                    setPersonal(personal-1)
+                    setPending(pending-1)
                 }
-                if(type==="Family")
-                {
-                    setFamily(family-1)
-                }
-                if(type==="Other")
-                {
-                    setOther(other-1);
+                else if(category==="In-process")
+                { 
+                    setInprocess(inprocess-1)
                 }
             }
-            return t["Name"] !== id;
+            return t["toDoName"] === id;
           });
-          setTask(removeItem);
+
+          const res= await axios.delete(`http://localhost:3000/todo/delete/${id}`,removeItem)
+          setTask(res.data);
     }
  
-    function handleModal (taskName,taskType,index){
+    function handleModal (taskName,taskDesc,index,userId){
         
         let editItems=task.find((elem)=>{
-            return elem.Name===taskName
+            return elem.toDoName===taskName
+        })
+        let editDesc=task.find((elem)=>{
+            return elem.toDoDescription==taskDesc
         })
         console.log(editItems);
-        if(editItems.Type==="Family")
+        if(editItems.toDoStatus==="New")
         {
-            setFamily(family-1);
-        }else if(editItems.Type==="Other")
+            setNeww(neww-1);
+        }else if(editItems.toDoStatus==="Pending")
         {
-            setOther(other-1);
+            setPending(pending-1);
         }
-        else if(editItems.Type==="Personal")
+        else if(editItems.toDoStatus==="In-process")
         {
-            setPersonal(personal-1);
+            setInprocess(inprocess-1);
         }
-        else if(editItems.Type==="Work")
-        {
-            setWork(work-1)
-        }
+        
         setToggleSubmit(false);
-        setInputData(editItems.Name)
-        setIsEditItem(taskName)
+        setInputData(editDesc.toDoDescription)
+        setInputName(editItems.toDoName)
+        setIsEditName(taskName)
+        setIsEditItem(taskDesc)
+        setUserId(userId)
     }
 
 
@@ -152,15 +187,15 @@ const ToDo = () => {
         
             
             
-            <br /><br /><br />
+            {/* <br /><br /><br /> */}
             
-                <input type="text" id="inputTask" className="inputTask" value={inputData} onChange={(e)=>setInputData(e.target.value)} placeholder="Add Task"/> 
+                <input type="text" id="inputName" className="inputName" value={inputName} onChange={(e)=>setInputName(e.target.value)} placeholder="Task Name"></input>
+                <input type="text" id="inputTask" className="inputTask" value={inputData} onChange={(e)=>setInputData(e.target.value)} placeholder="Task Description"/> 
                 <select className="taskOption" id="taskOption"> 
-                        <option value="Select One">Select One</option> 
-                        <option value="Work">Work</option> 
-                        <option value="Family">Family</option>
-                        <option value="Personal">Personal</option>
-                        <option value="Other">Other</option> 
+                        <option value="New">New</option> 
+                        <option value="Pending">Pending</option> 
+                        <option value="In-process">In-process</option>
+                         
                 </select> 
                 {toggleSubmit ? <input type="submit" value="Add New Task +" className="NewTaskBtn" onClick={newTask} />:
                 <input type="submit" value="Edit Task" className="NewTaskBtn" onClick={updated}/>} 
@@ -171,18 +206,18 @@ const ToDo = () => {
             <div className="allTasks">
             
                 {task.map((t,index)=>
-                    <div className="task" key={t.Name} > <span className="tN">{t.Name}</span> <span className="tC"> [{t.Type}]</span> <input type="button" className="btn" onClick={()=>handleModal(t.Name,t.Type,index)} value="Edit"/><input type="button" className="delbtn" value="Delete" onClick={()=>handleDelete(t.Name,t.Type)}/> </div>
+                    <div className="task" key="{t.toDoName}" > <span className="tN">({t.toDoName})</span> <span className="tD"> {t.toDoDescription} </span><span className="tC"> [{t.toDoStatus}]</span> <input type="button" className="btn" onClick={()=>handleModal(t.toDoName,t.toDoDescription,index,t.userId)} value="Edit"/><input type="button" className="btn" value="Delete" onClick={()=>handleDelete(t.toDoName,t.toDoStatus)}/> </div>
             
                 )}
             
             </div>
                 
                 <div className="taskCategories">
-                    <div className="category"><h3> <b>All  {work+personal+family+other}</b> </h3>  </div>
-                    <div className="category"><h3> <b>Work  {work}</b> </h3> </div>
-                    <div className="category"><h3> <b>Personal  {personal}</b> </h3> </div>
-                    <div className="category"><h3> <b>Family  {family}</b> </h3> </div>
-                    <div className="category"><h3> <b>Other  {other}</b> </h3> </div>
+                    <div className="category"><h5 className="All"> <b>All  {neww+pending+inprocess}</b> </h5>  </div>
+                    <div className="category"><h5 className="All"> <b>New  {neww}</b> </h5> </div>
+                    <div className="category"><h5 className="All"> <b>Pending  {pending}</b> </h5> </div>
+                    <div className="category"><h5 className="All"> <b>In-process  {inprocess}</b> </h5> </div>
+                    
                 </div>
         
             

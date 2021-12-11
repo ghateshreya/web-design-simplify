@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss';
-import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 const useStyles = createUseStyles((theme) => ({
@@ -9,51 +8,6 @@ const useStyles = createUseStyles((theme) => ({
     }
 }));
 
-    // const [fname, setFname] = useState<string>("");
-    // const [lname, setLname] = useState<string>("");
-    // const [email, setEmail] = useState<string>("");
-    // const [address, setAddress] = useState<string>("");
-    // const [pass, setPass] = useState<string>("");
-    // const [cpass, setCpass] = useState<string>("");
-// const { register, handleSubmit, errors } = useForm({
-//     defaultValues: {
-//       first_name: user.first_name,
-//       last_name: user.last_name,
-//       user_email: user.user_email,
-//       user_password: user.user_password
-//     }
-//   });
-
-// const handleSubmit = async (event) => {
-//     event.preventDefault();
-
-//     try {
-//       const { user } = props;
-//       await axios.post(`${BASE_API_URL}/register`, {
-//         ...user,
-//       });
-//       Swal.fire('Awesome!', "You're successfully registered!", 'success').then(
-//         (result) => {
-//           if (result.isConfirmed || result.isDismissed) {
-//             props.resetUser();
-//             props.history.push('/');
-//           }
-//         }
-//       );
-//     } catch (error) {
-//       if (error.response) {
-//         Swal.fire({
-//           icon: 'error',
-//           title: 'Oops...',
-//           text: error.response.data
-//         });
-//         console.log('error', error.response.data);
-//       }
-//     }
-//   };
-
-
-
 function SignUp() {
     const classes = useStyles();
 
@@ -61,9 +15,9 @@ function SignUp() {
         { email: '', password: '', firstName: '', lastName: ''}
     );
 
-    const handleChange = (event) => {
-        setUserSignUp({...userSignUp, [event.target.name]: event.target.value})
-    }
+    // const handleChange = (event) => {
+    //     setUserSignUp({...userSignUp, [event.target.name]: event.target.value})
+    // }
 
     let postData = {
         "firstName":"Shreya",
@@ -72,26 +26,26 @@ function SignUp() {
         "password": "Shreya@1234"
     }    
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        axios({
-            method: 'POST',
-            url: 'http://127.0.0.1/user/create',
-            headers: {
-                // Authorization: `YOUR_AUTH_TOKEN`,
-                "Content-Type": "application/json"
-            },
-            data: {
-                ...postData
-            }
-        })
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-        }
+    // const handleSubmit = (e) => {
+    //     e.preventDefault()
+    //     axios({
+    //         method: 'POST',
+    //         url: 'http://127.0.0.1/user/create',
+    //         headers: {
+    //             // Authorization: `YOUR_AUTH_TOKEN`,
+    //             "Content-Type": "application/json"
+    //         },
+    //         data: {
+    //             ...postData
+    //         }
+    //     })
+    //     .then((res) => {
+    //         console.log(res);
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     });
+    //     }
     // render() {
         return (
             <form>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Column, Row } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
-import LineChart from 'react-svg-line-chart';
 
 const data = [];
 

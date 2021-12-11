@@ -5,8 +5,6 @@ import { ThemeProvider } from 'react-jss';
 import Theme from 'resources/theme';
 import Routes from 'routes';
 import './index.css';
-import $ from 'jquery';
-import Popper from 'popper.js';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
    

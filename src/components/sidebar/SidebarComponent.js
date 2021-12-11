@@ -7,7 +7,6 @@ import {
     IconContacts,
     IconLogout,
     IconOverview,
-    IconSettings,
     IconSubscription,
 } from 'assets/icons';
 import { convertSlugToUrl } from 'resources/utilities';

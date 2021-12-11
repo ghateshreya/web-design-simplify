@@ -1,11 +1,11 @@
-import React , {useState} from 'react';
+import React from 'react';
 import { Column, Row } from 'simple-flexbox';
-import { createUseStyles, useTheme } from 'react-jss';
+import { createUseStyles } from 'react-jss';
 import TotalCardComponent from './TotalExpense';
 import ExpennseListComponent from './ExpenseListComponent';
 import ExpenseChart from './ExpenseChart';
 import AddExpenseComponent from './AddExpenseComponent';
-import { FaHamburger, FaGasPump, FaShoppingBag } from "react-icons/fa";
+import axios from 'axios';
 
 const useStyles = createUseStyles((theme) => ({
     cardsContainer: {
@@ -94,14 +94,29 @@ const useStyles = createUseStyles((theme) => ({
         marginTop: '20px',
     }
 }));
+// const TAGS = {
+//     UTILITIES: { text: 'UTILITIES', backgroundColor: '#FEC400', color: '#FFFFFF' },
+//     ENTERTAINMENT: { text: 'ENTERTAINMENT', backgroundColor: '#9966FF', color: '#FFFFFF' },
+//     TRAVEL: { text: 'TRAVEL', backgroundColor: '#FF6484', color: '#FFFFFF' },
+//     MISC: { text: 'MISC', backgroundColor: '#FF9F3F', color: '#FFFFFF' },
+//     FOOD: { text: 'FOOD', backgroundColor: '#4BC0C0', color: '#FFFFFF' },
 
-const TAGS = {
-    PERSONAL: { text: 'PERSONAL', backgroundColor: '#FEC400', color: '#FFFFFF' },
-    GROUP: { text: 'GROUP', backgroundColor: '#29CC97', color: '#FFFFFF' }
-};
+// };
 
 function ExpenseComponent(props) {
     const classes = useStyles();
+    const url = "http://localhost:3000/expense/getAll";
+    const [items, setItems] = React.useState([]);
+
+    React.useEffect(() => {
+        axios.get(url, ).then((response) => {
+            setItems(response.data);
+        });
+    }, []);
+   
+
+
+
     function renderStat(title, value) {
         return (
             <Column
@@ -117,18 +132,17 @@ function ExpenseComponent(props) {
     }
 
     // State for defining data
-    const [items, setItems] = useState([
-        { icon: <FaShoppingBag/> ,title: 'Grocery', tag: TAGS.PERSONAL, date:'Dec 11, 2021', price: "5.99" },
-        {
-            icon: <FaGasPump />,
-            title: 'Transport',
-            tag: TAGS.GROUP,
-            date:'Dec 10, 2021',
-            price: "8.99"
-        },
-        { icon: <FaHamburger/>, title: 'Food', checked: true, tag: TAGS.PERSONAL, date:'Dec 07, 2021', price: "10.99" }
-    ]);
-
+    // const [items, setItems] = useState([
+    //     { title: 'Grocery', tag: TAGS.FOOD, desc:"Stop & Shop", price: "5.99" },
+    //     {
+    //         title: 'Transport',
+    //         tag: TAGS.TRAVEL,
+    //         desc: "Orange Line",
+    //         price: "8.99"
+    //     },
+    //     {title: 'Food', tag: TAGS.FOOD, desc:"Qdoba",  price: "10.99" }
+    // ]);
+console.log(items)
     return (
         <Column>
             <Row
@@ -173,15 +187,6 @@ function ExpenseComponent(props) {
                 </Row>
                 
             </Row>
-            {/* <Row className={classes.cardsContainer}
-                wrap
-                flexGrow={1}
-                horizontal='space-between'
-                breakpoints={{ 768: 'column' }}>
-                    <AddExpenseForm />
-
-
-            </Row> */}
             <Row
                 horizontal='space-between'
                 className={classes.lastRow}

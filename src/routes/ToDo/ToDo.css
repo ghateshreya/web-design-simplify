@@ -9,7 +9,7 @@
 .NewTaskBtn:hover{
     color: #6C63FF;
     background-color: white;
-    border: #6C63FF 3px solid;
+    border: #6C63FF 1px solid;
 }
 .tasksContainer{
     display: inline-block;
@@ -18,10 +18,10 @@
 }
 .taskOption{
     width: 140px;
-    height: 45px;
-    margin: 5px;
-    border-radius: 10px;
-    border: 3px solid darkgray;
+    height: 40px;
+    margin: 10px;
+    border-radius: 4px;
+    border: 1px solid darkgray;
 }
 .allTasks{
     display: inline-block;
@@ -29,27 +29,26 @@
     overflow-x: hidden;
     width: 50%;
     float: left;
-    margin-left: 260px;
+    margin-left: 120px;
     
 }
 .taskCategories{
     display: inline-block;
     width: 20%;
-    
     float: right;
     margin: 50px;
     
 }
 .task{
-    border: 3px solid #6C63FF;
-    width: 99%;
+    border: 1px solid darkgray;
+    width: 100%;
     margin-top: 5px;
-    height: 40px;
+    height: 60px;
     border-radius: 10px;
 }
 .category{
     margin-top: 5px;
-    border: 3px solid #6C63FF;
+    border: 1px solid #6C63FF;
     width: 80%;
     height: 60px;
     border-radius: 10px;
@@ -91,10 +90,11 @@
     border-radius: 10px;
 }
 .btn{
-    border:3px solid darkgray;
+    border:1px solid darkgray;
     border-radius: 10px;
     color: black;
     float: right;
+    
     margin-top: 10px;
     margin-left: 5px;
     margin-right: 5px;
@@ -124,10 +124,16 @@
 .inputTask{
     width: 350px;
     height: 40px;
-    border: darkgray 3px solid;
-    border-radius: 10px;
-    margin-left: -100px;
+    border: darkgray 1px solid;
+    border-radius: 4px;
+    margin-left: 10px;
+    margin-top: -300px;
     
+}
+.inputName{
+    height: 40px;
+    border: darkgray 1px solid;
+    border-radius: 4px;
 }
 .editbtn{
     border:3px solid #6C63FF;
@@ -171,6 +177,14 @@
     border: none;
     cursor: pointer;
 }
-.tN .tC{
-position: absolute;
+.tN{
+    margin: 30px;   
+}
+.tD{
+    margin: 30px;
+}
+
+.All{
+    text-align: center;
+    margin-top: 15px;
 }

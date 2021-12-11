@@ -5,7 +5,6 @@ import { Row } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
 import { SidebarContext } from 'hooks/useSidebar';
 import SLUGS from 'resources/slugs';
-import { IconBell, IconSearch } from 'assets/icons';
 import DropdownComponent from 'components/dropdown';
 import UserContext from "contexts/userContext";
 import usericon from './usericon.png'
@@ -66,7 +65,7 @@ function HeaderComponent() {
     const { currentItem } = useContext(SidebarContext);
     const theme = useTheme();
     const classes = useStyles({ theme });
-    const { user, logout } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     // console.log(user);
     // function onClick(slug, parameters = {}) {
     //     push(convertSlugToUrl(slug, parameters));
@@ -104,9 +103,9 @@ function HeaderComponent() {
             title = '';
     }
 
-    function onSettingsClick() {
-        push(SLUGS.login);
-    }
+    // function onSettingsClick() {
+    //     push(SLUGS.login);
+    // }
 
     return (
         <Row className={classes.container} vertical='center' horizontal='space-between'>
