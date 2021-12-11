@@ -6,6 +6,7 @@ import ExpennseListComponent from './ExpenseListComponent';
 import ExpenseChart from './ExpenseChart';
 import AddExpenseComponent from './AddExpenseComponent';
 import { FaHamburger, FaGasPump, FaShoppingBag } from "react-icons/fa";
+import axios from 'axios';
 
 const useStyles = createUseStyles((theme) => ({
     cardsContainer: {
@@ -95,6 +96,8 @@ const useStyles = createUseStyles((theme) => ({
     }
 }));
 
+
+
 const TAGS = {
     PERSONAL: { text: 'PERSONAL', backgroundColor: '#FEC400', color: '#FFFFFF' },
     GROUP: { text: 'GROUP', backgroundColor: '#29CC97', color: '#FFFFFF' }
@@ -102,6 +105,24 @@ const TAGS = {
 
 function ExpenseComponent(props) {
     const classes = useStyles();
+    const headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "*",
+        "Access-Control-Allow-Headers": "'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'",
+      }
+    const url = "http://localhost:3000/user/getAll";
+    // const url = "https://jsonplaceholder.typicode.com/posts/1";
+    const [post, setPost] = React.useState(null);
+
+    React.useEffect(() => {
+        axios.get(url, {headers}).then((response) => {
+        setPost(response.data);
+        console.log(response.data);
+        });
+    }, []);
+
+
+
     function renderStat(title, value) {
         return (
             <Column

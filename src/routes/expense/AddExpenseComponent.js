@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Column } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
 import { FaRegListAlt, FaUtensils, FaGasPump, FaWifi, FaGamepad } from 'react-icons/fa';
-import DatePicker from 'react-date-picker';
 import './Expense.css';
+import { Row } from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -129,11 +129,11 @@ const CATEGORY = [
 
 const TAG = [
     {
-        value: "Personal",
+        value: TAGS.PERSONAL,
         label: 'Personal'
     },
     {
-        value: "Group",
+        value: TAGS.GROUP,
         label: 'Group'
     }
 ]
@@ -143,21 +143,6 @@ function AddExpenseComponent(props) {
     const classes = useStyles({ theme });
     const composedClassName = [classes.container, props.className].join(' ');
     const [modal, setModal] = useState(false);
-
-
-    // function onAddButtonClick() {
-    //     props.setItems((prev) => {
-    //         const newItems = [...prev];
-    //         newItems.push({
-    //             icon: categories,
-    //             title: `New Task`,
-    //             tag: TAGS.PERSONAL,
-    //             date: 'Dec 12, 2021',
-    //             price: '5.99'
-    //         });
-    //         return newItems;
-    //     });
-    // }
 
     function onClick() {
         if (!modal) {
@@ -170,30 +155,30 @@ function AddExpenseComponent(props) {
     }
 
     const [open, setOpen] = React.useState(false);
-    const [title, setTitle] = React.useState("New Task")
+    const [expenseTitle, setExpenseTitle] = React.useState(null);
     const [categories, setCategories] = React.useState(null);
-    const [tags, setTags] = React.useState('Personal');
-    const [dates, setDates] = React.useState(null);
+    const [expenseTags, setExpenseTags] = React.useState(null);
+    const [expenseDate, setExpenseDates] = React.useState(null);
+    const [expensePrice, setExpensePrice] = React.useState(null);
 
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleClose = () => {
-
         setOpen(false);
     }
     const handleSave = () => {
         setOpen(false);
-        
+
         props.setItems((prev) => {
             const newItems = [...prev];
             newItems.push({
                 icon: categories,
-                title: title,
-                tag: tags,
-                date: dates,
-                price: '5.99'
+                title: expenseTitle,
+                tag: expenseTags,
+                date: expenseDate,
+                price: expensePrice
             });
             return newItems;
         });
@@ -204,9 +189,25 @@ function AddExpenseComponent(props) {
     };
 
     const handleTagChange = (event) => {
-        setTags(event.target.value);
+        console.log(event.target.value);
+        if(event.target.value === "Personal"){
+            setExpenseTags(event.target.value)
+        }
+        else{
+            setExpenseTags(event.target.value);
+        }
+        
     };
 
+    const handleTitleChange = (event) => {
+        setExpenseTitle(event.target.value);
+    };
+    const handleDateChange = (event) => {
+        setExpenseDates(event.target.value);
+    };
+    const handlePriceChange = (event) => {
+        setExpensePrice(event.target.value);
+    };
 
     function RedBar() {
         return (
@@ -248,7 +249,7 @@ function AddExpenseComponent(props) {
 
                         {/* Title */}
                         <DialogContentText>
-                            <TextField id="outlined-basic" label={title} variant="outlined" />
+                            <TextField id="outlined-basic" label="Title" variant="outlined" onChange={handleTitleChange} />
                         </DialogContentText>
                         <RedBar />
 
@@ -256,7 +257,7 @@ function AddExpenseComponent(props) {
                             id="outlined-select-currency"
                             select
                             label="Tag"
-                            value={tags}
+                            value={expenseTags}
                             onChange={handleTagChange}
                         >
                             {TAG.map((option) => (
@@ -268,18 +269,14 @@ function AddExpenseComponent(props) {
 
                         <RedBar />
                         <DialogContentText>
-                            <TextField id="outlined-basic" label="Date" variant="outlined" />
+                            <TextField id="outlined-basic" label="Date" variant="outlined" onChange={handleDateChange} />
                         </DialogContentText>
                         <RedBar />
-                        
+
 
                         <DialogContentText>
-                            <TextField id="outlined-basic" label="Price" variant="outlined" />
+                            <TextField id="outlined-basic" label="Price" variant="outlined" onChange={handlePriceChange} />
                         </DialogContentText>
-
-
-
-
 
                     </DialogContent>
 
