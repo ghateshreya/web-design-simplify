@@ -174,7 +174,7 @@ function AddExpenseComponent(props) {
                 desc: expenseDesc,
                 price: expensePrice
             });
-            // createPOST();
+            createPOST();
             return newItems;
         });
     };
@@ -192,7 +192,7 @@ function AddExpenseComponent(props) {
             {
 
                 "expenseName":expenseTitle,
-                "expenseDescription":"Desc",
+                "expenseDescription":expenseDesc,
                 "expenseCategory": expenseTags.text,
                 "expenseCostInDollars": expensePrice,
                 "userId":{"firstName" : "Jinal",
